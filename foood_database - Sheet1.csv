@@ -1,0 +1,47 @@
+Name,Price,Calories,Protein,Fat,Carbs,Category
+Grilled Chicken Sandwich,5.99,380,30,7,40,Sandwich
+Caesar Salad,7.49,350,12,28,12,Salad
+Cheese Pizza Slice,2.99,285,12,10,36,Pizza
+Veggie Burger,6.49,420,22,12,40,Burger
+Greek Yogurt Parfait,3.99,200,15,2,25,Snack
+Spaghetti Bolognese,8.99,590,25,20,75,Pasta
+Sushi Roll (8 pieces),9.99,450,15,5,70,Sushi
+Tofu Stir Fry,7.99,480,18,15,65,Asian Cuisine
+Fish Tacos (2),6.99,450,20,15,45,Mexican
+BLT Sandwich,4.99,420,17,23,35,Sandwich
+Chicken Caesar Wrap,6.99,560,32,25,46,Wrap
+Hawaiian Pizza Slice,3.49,320,14,12,40,Pizza
+Egg Salad Sandwich,4.49,400,16,25,30,Sandwich
+Turkey Club Sandwich,7.49,520,28,28,40,Sandwich
+Caprese Salad,7.99,320,14,22,20,Salad
+Tuna Salad Sandwich,6.99,420,25,20,35,Sandwich
+Tomato Soup (12 oz),4.49,150,4,8,18,Soup
+Pad Thai,8.99,600,25,15,80,Asian Cuisine
+Bacon and Cheese Omelette,7.99,450,28,30,5,Breakfast
+Pancakes (3),5.99,550,12,15,90,Breakfast
+French Toast,5.99,450,12,15,70,Breakfast
+Grilled Veggie Panini,6.99,420,12,20,55,Sandwich
+Philly Cheesesteak,7.99,690,50,30,50,Sandwich
+Chicken Quesadilla,6.99,550,28,28,50,Mexican
+Chicken Fried Rice,7.99,550,20,15,75,Asian Cuisine
+Taco Salad,7.49,700,30,40,60,Salad
+Black Bean Soup (12 oz),4.99,200,12,1,35,Soup
+Miso Soup (12 oz),3.49,90,6,3,8,Asian Cuisine
+Cobb Salad,8.99,550,40,30,20,Salad
+Poke Bowl,9.99,500,30,15,60,Sushi
+Veggie Pizza Slice,3.29,290,12,11,38,Pizza
+Egg and Cheese Croissant,4.99,420,17,25,35,Breakfast
+Bagel with Cream Cheese,3.49,350,11,12,52,Breakfast
+Sausage and Egg Biscuit,4.49,520,20,32,40,Breakfast
+Apple Cinnamon Muffin,2.99,340,5,15,50,Snack
+Chocolate Chip Cookie,1.99,190,2,10,25,Snack
+Brownie,2.49,300,3,15,40,Snack
+Cupcake,3.49,400,4,20,50,Snack
+Macaroni and Cheese,7.49,550,20,30,55,Pasta
+Fettuccine Alfredo,8.99,800,25,45,70,Pasta
+Lasagna,9.99,760,30,35,85,Pasta
+Chicken Burrito,7.49,650,35,25,70,Mexican
+Nachos,8.99,800,20,45,75,Mexican
+Chicken Enchiladas,9.99,700,30,25,80,Mexican
+Gazpacho (12 oz),4.99,150,4,4,20,Soup
+Lentil Soup (12 oz),4.49,200,14,2,30,Soup
