@@ -50,6 +50,19 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.image.*;
 import java.io.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.ProtectionDomain;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class FinalProject extends Application{
 
@@ -102,4 +115,42 @@ public class FinalProject extends Application{
         GridPane shopper = new GridPane();
         
     }
+
+    private Order readIn(){
+        Order order = new Order();
+        ArrayList<Item> items = new ArrayList<>();
+
+        String csvFile = "FoodD.csv";
+
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+            String line; 
+            reader.readLine();
+
+            while((line = reader.readLine()) != null){
+                String[] values = line.split(",");
+                String name = values[0];
+                double price = Double.parseDouble(values[1]);
+                double calories = Double.parseDouble(values[2]);
+                int protein = Integer.parseInt(values[3]);
+                int fat = Integer.parseInt(values[4]);
+                int carbs = Integer.parseInt(values[5]);
+                String category = values[6];
+                Item item = new Item(name, 0, price, calories, protein, fat, carbs, category);
+                items.add(item);
+                order.addItem(item);
+    
+            }
+        reader.close();
+        }
+        return order;
+
+
+
+        
+
+
+    }
+
 }
