@@ -66,5 +66,12 @@ public class Order{
     public int getTotal(){
         return ORDER.size();
     }
+    public String toString(){
+        String str = "";
+        for(int i =0; i<ORDER.size();i++){
+            str += ORDER.get(i).toString() + "\n";
+        }
+        return str;
+    }
 
 }

@@ -50,19 +50,8 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.image.*;
 import java.io.*;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.ProtectionDomain;
-import java.util.ArrayList;
-import java.util.List;
-
+import javafx.scene.control.ScrollPane;
+import javafx.collections.transformation.FilteredList;
 
 public class FinalProject extends Application{
 
@@ -73,10 +62,22 @@ public class FinalProject extends Application{
     Tab checkOut;
     Tab goalSetter;
     Tab calendar;
+    Order items;
+
+    //home
+    GridPane main;
+    GridPane shopper = new GridPane();
+    VBox shop;
+    //search
+    Order searched = new Order();
+    ScrollPane scroll;
+    TextField searchBar;
+    Button search;
+
     public void start(Stage stage) {
+        items = readIn();
         createTabs();
-        creatHome();
-        
+        createHome();
         Scene scene = new Scene(tabPane, WIDTH, HEIGHT);
         //scene.getStylesheets().add(getClass().getResource("Donovan_project1style2.css").toExternalForm());
         //fontSize.bind(scene.widthProperty().add(scene.heightProperty()).divide(50));
@@ -100,25 +101,121 @@ public class FinalProject extends Application{
         calendar.setClosable(false);
         tabPane.getTabs().addAll(home, checkOut, goalSetter, calendar);
     }
-    private void creatHome(){
-        VBox main = new VBox();
-        /* 
+    private void createHome(){
+        //Create Main Pane
+        createHomeGrid();
+        //Create Cart
+        createCart();
+        //shopping interface
+        createShop();
+
+
+        home.setContent(main);
+    }
+
+    private void createHomeGrid(){
+        main = new GridPane();
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(10);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(60);
+        ColumnConstraints col3 = new ColumnConstraints();
+        col3.setPercentWidth(30);
+        main.getColumnConstraints().addAll(col1, col2, col3);
+    }
+
+    private void createCart(){
         Label label = new Label("");
         TitledPane cart = new TitledPane("cart",label);
-        cart.setExpanded(false);
-        cart.setPrefWidth(30);
-        main.getChildren().addAll(cart);
+        VBox cartBox = new VBox();
+        cartBox.getChildren().addAll(cart);
         cart.setAlignment(Pos.TOP_RIGHT);
-        home.setContent(main);
-        */
-
-        GridPane shopper = new GridPane();
-        
+        cart.setExpanded(false);
+        main.add(cartBox,2,1);
     }
+
+    private void createShop(){
+        shop = new VBox();
+        shop.getChildren().addAll(createSearch(),createShopGrid());
+        
+        main.add(shop, 1,1);
+    }
+
+    private HBox createSearch(){
+        searchBar = new TextField();
+        searchBar.setPrefWidth(Integer.MAX_VALUE);
+        search = new Button("Search");
+        search.setMinWidth(80);
+        HBox searchBox = new HBox();
+        searchBox.getChildren().addAll(searchBar, search);
+        search.setOnAction(e -> {
+            System.out.println("Searched");
+            shopper.getChildren().clear();
+            filterList(searchBar.getText());
+            createShopGrid();
+        });
+        return searchBox;
+    }
+
+    private ScrollPane createShopGrid(){
+        scroll = new ScrollPane();
+        scroll.setPrefHeight(Integer.MAX_VALUE);
+        ColumnConstraints coll1 = new ColumnConstraints();
+        coll1.setPercentWidth(50);
+        ColumnConstraints coll2 = new ColumnConstraints();
+        coll2.setPercentWidth(50);
+        shopper.getColumnConstraints().addAll(coll1, coll2);
+
+        populateShopGrid();
+
+        return scroll;
+    }
+
+    private void populateShopGrid(){
+        System.out.println(searched.toString());
+        int row = 0;
+        int col = 0;
+        for(int i =0; i<searched.getTotal();i++){
+            VBox temp = new VBox();
+            Label l = new Label(searched.getItem(i).getName());
+            temp.getChildren().addAll(l);
+            temp.setAlignment(Pos.CENTER);
+            shopper.add(temp, col, row);
+            if(i!=0&&i%2!=0){
+                row++;
+            }
+            if(i%2==0){
+                col = 1;
+            }
+            else{
+                col = 0;
+            }
+        }
+        scroll.setContent(shopper);
+    }
+
+    //search functions
+    private boolean searchFindsOrder(Item item, String searchText){
+        return (item.getName().toLowerCase().contains(searchText.toLowerCase())) ||
+                (item.getCategory().toLowerCase().contains(searchText.toLowerCase()));
+    }
+
+    private void filterList(String searchText){
+        Order filteredList = new Order();
+        for (int i = 0; i < items.getTotal(); i++){
+            if(searchFindsOrder(items.getItem(i), searchText)) filteredList.addItem(items.getItem(i));
+        }
+        searched = filteredList;
+    }
+
+
+
+
+
 
     private Order readIn(){
         Order order = new Order();
-        ArrayList<Item> items = new ArrayList<>();
+        ArrayList<Item> itemsArray = new ArrayList<>();
 
         String csvFile = "FoodD.csv";
 
@@ -138,19 +235,19 @@ public class FinalProject extends Application{
                 int carbs = Integer.parseInt(values[5]);
                 String category = values[6];
                 Item item = new Item(name, 0, price, calories, protein, fat, carbs, category);
-                items.add(item);
+                itemsArray.add(item);
+                //System.out.println(item.toString());
                 order.addItem(item);
+                searched.addItem(item);
     
             }
         reader.close();
         }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return order;
-
-
-
-        
-
-
     }
-
 }
