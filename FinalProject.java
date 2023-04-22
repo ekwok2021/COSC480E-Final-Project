@@ -52,6 +52,7 @@ import javafx.scene.image.*;
 import java.io.*;
 import javafx.scene.control.ScrollPane;
 import javafx.collections.transformation.FilteredList;
+import java.util.HashMap; 
 
 public class FinalProject extends Application{
 
@@ -68,16 +69,32 @@ public class FinalProject extends Application{
     GridPane main;
     GridPane shopper = new GridPane();
     VBox shop;
+    VBox cartSide;
+    VBox showCase;
+    HBox addtoCBox = new HBox();
     //search
     Order searched = new Order();
     ScrollPane scroll;
     TextField searchBar;
     Button search;
+    HashMap<Button, Item> buttons = new HashMap<>();;
+    //showcase
+    TextField name;
+    TextField cals;
+    TextField prot;
+    TextField carb;
+    TextField fats;
+    TextField money;
+    TextField cat;
+
+    Order shoppingCart = new Order();
 
     public void start(Stage stage) {
         items = readIn();
         createTabs();
         createHome();
+        showCasing();
+        main.add(cartSide, 2,1);
         Scene scene = new Scene(tabPane, WIDTH, HEIGHT);
         //scene.getStylesheets().add(getClass().getResource("Donovan_project1style2.css").toExternalForm());
         //fontSize.bind(scene.widthProperty().add(scene.heightProperty()).divide(50));
@@ -116,22 +133,23 @@ public class FinalProject extends Application{
     private void createHomeGrid(){
         main = new GridPane();
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(10);
+        col1.setPercentWidth(0);
         ColumnConstraints col2 = new ColumnConstraints();
         col2.setPercentWidth(60);
         ColumnConstraints col3 = new ColumnConstraints();
-        col3.setPercentWidth(30);
+        col3.setPercentWidth(40);
         main.getColumnConstraints().addAll(col1, col2, col3);
     }
 
     private void createCart(){
+        cartSide = new VBox();
         Label label = new Label("");
         TitledPane cart = new TitledPane("cart",label);
         VBox cartBox = new VBox();
         cartBox.getChildren().addAll(cart);
         cart.setAlignment(Pos.TOP_RIGHT);
         cart.setExpanded(false);
-        main.add(cartBox,2,1);
+        cartSide.getChildren().addAll(cart);
     }
 
     private void createShop(){
@@ -172,15 +190,22 @@ public class FinalProject extends Application{
     }
 
     private void populateShopGrid(){
-        System.out.println(searched.toString());
+        //System.out.println(searched.toString());
+        buttons.clear();
         int row = 0;
         int col = 0;
         for(int i =0; i<searched.getTotal();i++){
             VBox temp = new VBox();
             Label l = new Label(searched.getItem(i).getName());
-            temp.getChildren().addAll(l);
+            Button show = new Button("Show");
+            buttons.put(show, searched.getItem(i));
+            show.setOnAction(e -> {
+                showItem(buttons.get(show));
+            });
+            temp.getChildren().addAll(l,show);
             temp.setAlignment(Pos.CENTER);
             shopper.add(temp, col, row);
+            shopper.setAlignment(Pos.CENTER);
             if(i!=0&&i%2!=0){
                 row++;
             }
@@ -192,6 +217,89 @@ public class FinalProject extends Application{
             }
         }
         scroll.setContent(shopper);
+    }
+
+    private void showCasing(){
+        showCase = new VBox();
+        HBox nBox = new HBox();
+        Label nLabel = new Label("Name:");
+        name = new TextField();
+        name.setEditable(false);
+        nBox.getChildren().addAll(nLabel, name);
+        nBox.setAlignment(Pos.CENTER_RIGHT);
+
+        HBox caBox = new HBox();
+        Label caLabel = new Label("Calories:");
+        cals = new TextField();
+        cals.setEditable(false);
+        caBox.getChildren().addAll(caLabel, cals);
+        caBox.setAlignment(Pos.CENTER_RIGHT);
+        
+        HBox pBox = new HBox();
+        Label pLabel = new Label("Protein(g):");
+        prot = new TextField();
+        prot.setEditable(false);
+        pBox.getChildren().addAll(pLabel, prot);
+        pBox.setAlignment(Pos.CENTER_RIGHT);
+
+        HBox cBox = new HBox();
+        Label cLabel = new Label("Carbs(g):");
+        carb = new TextField();
+        carb.setEditable(false);
+        cBox.getChildren().addAll(cLabel, carb);
+        cBox.setAlignment(Pos.CENTER_RIGHT);
+
+        HBox fBox = new HBox();
+        Label fLabel = new Label("Fat(g):");
+        fats = new TextField();
+        fats.setEditable(false);
+        fBox.getChildren().addAll(fLabel, fats);
+        fBox.setAlignment(Pos.CENTER_RIGHT);
+
+        HBox mBox = new HBox();
+        Label mLabel = new Label("Price($):");
+        money = new TextField();
+        money.setEditable(false);
+        mBox.getChildren().addAll(mLabel, money);
+        mBox.setAlignment(Pos.CENTER_RIGHT);
+
+        HBox catBox = new HBox();
+        Label catLabel = new Label("Category:");
+        cat = new TextField();
+        cat.setEditable(false);
+        catBox.getChildren().addAll(catLabel, cat);
+        catBox.setAlignment(Pos.CENTER_RIGHT);
+
+        showCase.getChildren().addAll(nBox,catBox,caBox,pBox,cBox,fBox,mBox);
+        showCase.setVisible(false);
+        cartSide.getChildren().addAll(showCase);
+    }
+
+    private void showItem(Item i){
+        showCase.setVisible(true);
+        Button hide = new Button("Hide");
+        Button addToCart = new Button("Add");
+        addToCart.setMinWidth(50);
+        TextField am = new TextField();
+        Label amT = new Label("Amount:");
+        amT.setMinWidth(50);
+        addtoCBox.getChildren().addAll(amT, am, addToCart);
+        addtoCBox.setAlignment(Pos.BOTTOM_RIGHT);
+        main.add(addtoCBox, 2,2);
+        name.setText(String.valueOf(i.getName()));
+        carb.setText(String.valueOf(i.getCarbs()));
+        cals.setText(String.valueOf(i.getCalorie()));
+        money.setText(String.valueOf(i.getPrice()));
+        cat.setText(String.valueOf(i.getCategory()));
+        prot.setText(String.valueOf(i.getProtein()));
+        fats.setText(String.valueOf(i.getFat()));
+        addToCart.setOnAction(e->{
+            shoppingCart.addItem(i);
+        });
+        hide.setOnAction(e->{
+            addtoCBox.setVisible(false);
+            showCase.setVisible(false);
+        });
     }
 
     //search functions
