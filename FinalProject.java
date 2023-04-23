@@ -86,8 +86,18 @@ public class FinalProject extends Application{
     TextField fats;
     TextField money;
     TextField cat;
+    TextField am;
+    Button hide;
+    Button addToCart;
 
+    //cart
     Order shoppingCart = new Order();
+    VBox cartContainer = new VBox();
+    private final TableView<Item> table = new TableView<>();
+    private ObservableList<Item> observableCart = 
+        FXCollections.observableArrayList();
+    Double TOTALAMOUNT = 0.0;
+    Double TOTALPRICE = 0.0;
 
     public void start(Stage stage) {
         items = readIn();
@@ -95,8 +105,9 @@ public class FinalProject extends Application{
         createHome();
         showCasing();
         main.add(cartSide, 2,1);
+        fillCartContainer();
         Scene scene = new Scene(tabPane, WIDTH, HEIGHT);
-        //scene.getStylesheets().add(getClass().getResource("Donovan_project1style2.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("finalProjectStyle.css").toExternalForm());
         //fontSize.bind(scene.widthProperty().add(scene.heightProperty()).divide(50));
         stage.setMinHeight(HEIGHT);
         stage.setMinWidth(WIDTH);
@@ -150,6 +161,7 @@ public class FinalProject extends Application{
         cart.setAlignment(Pos.TOP_RIGHT);
         cart.setExpanded(false);
         cartSide.getChildren().addAll(cart);
+        cart.setContent(cartContainer);
     }
 
     private void createShop(){
@@ -183,7 +195,8 @@ public class FinalProject extends Application{
         ColumnConstraints coll2 = new ColumnConstraints();
         coll2.setPercentWidth(50);
         shopper.getColumnConstraints().addAll(coll1, coll2);
-
+        shopper.setAlignment(Pos.CENTER);
+        
         populateShopGrid();
 
         return scroll;
@@ -196,6 +209,7 @@ public class FinalProject extends Application{
         int col = 0;
         for(int i =0; i<searched.getTotal();i++){
             VBox temp = new VBox();
+            temp.setAlignment(Pos.CENTER);
             Label l = new Label(searched.getItem(i).getName());
             Button show = new Button("Show");
             buttons.put(show, searched.getItem(i));
@@ -273,19 +287,24 @@ public class FinalProject extends Application{
         showCase.getChildren().addAll(nBox,catBox,caBox,pBox,cBox,fBox,mBox);
         showCase.setVisible(false);
         cartSide.getChildren().addAll(showCase);
+
+        hide = new Button("Hide");
+        hide.setMinWidth(50);
+        addToCart = new Button("Add");
+        addToCart.setMinWidth(50);
+        am = new TextField();
+        Label amT = new Label("Amount:");
+        amT.setMinWidth(50);
+        addtoCBox.getChildren().addAll(hide,amT, am, addToCart);
+        addtoCBox.setAlignment(Pos.BOTTOM_RIGHT);
+        main.add(addtoCBox, 2,2);
+        addtoCBox.setVisible(false);
     }
 
     private void showItem(Item i){
         showCase.setVisible(true);
-        Button hide = new Button("Hide");
-        Button addToCart = new Button("Add");
-        addToCart.setMinWidth(50);
-        TextField am = new TextField();
-        Label amT = new Label("Amount:");
-        amT.setMinWidth(50);
-        addtoCBox.getChildren().addAll(amT, am, addToCart);
-        addtoCBox.setAlignment(Pos.BOTTOM_RIGHT);
-        main.add(addtoCBox, 2,2);
+        addtoCBox.setVisible(true);
+        
         name.setText(String.valueOf(i.getName()));
         carb.setText(String.valueOf(i.getCarbs()));
         cals.setText(String.valueOf(i.getCalorie()));
@@ -294,7 +313,23 @@ public class FinalProject extends Application{
         prot.setText(String.valueOf(i.getProtein()));
         fats.setText(String.valueOf(i.getFat()));
         addToCart.setOnAction(e->{
-            shoppingCart.addItem(i);
+            Boolean t = false;
+            for(int j = 0; j<shoppingCart.getTotal(); j++){
+                if(shoppingCart.getItem(j).getName().equals(i.getName())&&!am.getText().equals("")){
+                    observableCart.remove(shoppingCart.getItem(j));
+                    shoppingCart.getItem(j).setAmount(shoppingCart.getItem(j).getAmount()+Integer.valueOf(am.getText()));
+                    observableCart.add(shoppingCart.getItem(j));
+                    t = true;
+                    break;
+                }
+            }
+            if(t == false&&!am.getText().equals("")){
+                shoppingCart.addItem(i);
+                observableCart.add(i);
+                i.setAmount(Integer.valueOf(am.getText()));
+            }
+            am.setText("");
+            
         });
         hide.setOnAction(e->{
             addtoCBox.setVisible(false);
@@ -317,7 +352,60 @@ public class FinalProject extends Application{
     }
 
 
+    //cart
+    private void fillCartContainer(){
+        table.setItems(observableCart);
+        table.setEditable(true);
+        TableColumn<Item, Integer> amountCol = new TableColumn<Item, Integer>("Amount");
+        amountCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("amount"));
+        amountCol.setPrefWidth(150);
+        amountCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+		amountCol.setOnEditCommit(new EventHandler<CellEditEvent<Item, Integer>>() {
+			@Override
+			public void handle(CellEditEvent<Item, Integer> event) {
+				Item f = event.getRowValue();
+                TOTALAMOUNT=TOTALAMOUNT-f.getAmount();
+                TOTALPRICE= TOTALPRICE-(f.getPrice()*f.getAmount());
+				f.setAmount(event.getNewValue());
+                TOTALAMOUNT+=f.getAmount();
+                //amountTotal.setText(""+TOTALAMOUNT);
+                TOTALPRICE+=(f.getAmount()*f.getPrice());
+                //priceTotal.setText("$"+TOTALPRICE);
+			}
+		});
 
+        TableColumn<Item, String> nameCol = new TableColumn<Item, String>("Item");
+        nameCol.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+        nameCol.setPrefWidth(150);
+
+        TableColumn<Item, Double> priceCol = new TableColumn<Item, Double>("Price");
+        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+        priceCol.setPrefWidth(150);
+
+        /* 
+        TableColumn<Item, Double> calorieCol = new TableColumn<Item, Double>("Cals");
+        calorieCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("calories"));
+        calorieCol.setPrefWidth(150);
+        */
+
+        table.getColumns().addAll(nameCol, amountCol, priceCol);
+
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setPrefSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+        //needs implemntation
+        Button checkout = new Button("Checkout");
+        checkout.setOnAction(e->{
+            tabPane.getSelectionModel().select(checkOut);
+        });
+
+        HBox checkOutBox = new HBox();
+        checkOutBox.setAlignment(Pos.BOTTOM_RIGHT);
+        checkOutBox.getChildren().addAll(checkout);
+
+        cartContainer.getChildren().addAll(table, checkOutBox);
+
+    }
 
 
 
