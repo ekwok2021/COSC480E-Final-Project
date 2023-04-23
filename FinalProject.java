@@ -53,11 +53,13 @@ import java.io.*;
 import javafx.scene.control.ScrollPane;
 import javafx.collections.transformation.FilteredList;
 import java.util.HashMap; 
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 
 public class FinalProject extends Application{
 
     private final int WIDTH = 550;  // arbitrary number: change and update comments
-    private final int HEIGHT = 400;
+    private final int HEIGHT = 650;
     TabPane tabPane;
     Tab home;
     Tab checkOut;
@@ -72,6 +74,7 @@ public class FinalProject extends Application{
     VBox cartSide;
     VBox showCase;
     HBox addtoCBox = new HBox();
+    ProgressBar pb;
     //search
     Order searched = new Order();
     ScrollPane scroll;
@@ -136,6 +139,8 @@ public class FinalProject extends Application{
         createCart();
         //shopping interface
         createShop();
+        //ProgressBar
+        createPBar();
 
 
         home.setContent(main);
@@ -167,6 +172,8 @@ public class FinalProject extends Application{
     private void createShop(){
         shop = new VBox();
         shop.getChildren().addAll(createSearch(),createShopGrid());
+        shop.setPadding(new Insets(5, 10, 0, 5));
+        shop.setSpacing(5);
         
         main.add(shop, 1,1);
     }
@@ -187,6 +194,14 @@ public class FinalProject extends Application{
         return searchBox;
     }
 
+    private void createPBar(){
+        pb = new ProgressBar(0);
+        pb.setPrefWidth(Integer.MAX_VALUE);
+        HBox p = new HBox();
+        p.getChildren().addAll(pb);
+        p.setPadding(new Insets(5, 10, 0, 5));
+        main.add(p, 1,2);
+    }
     private ScrollPane createShopGrid(){
         scroll = new ScrollPane();
         scroll.setPrefHeight(Integer.MAX_VALUE);
@@ -237,6 +252,7 @@ public class FinalProject extends Application{
         showCase = new VBox();
         HBox nBox = new HBox();
         Label nLabel = new Label("Name:");
+        nLabel.setMinWidth(100);
         name = new TextField();
         name.setEditable(false);
         nBox.getChildren().addAll(nLabel, name);
@@ -244,6 +260,7 @@ public class FinalProject extends Application{
 
         HBox caBox = new HBox();
         Label caLabel = new Label("Calories:");
+        caLabel.setMinWidth(100);
         cals = new TextField();
         cals.setEditable(false);
         caBox.getChildren().addAll(caLabel, cals);
@@ -251,6 +268,7 @@ public class FinalProject extends Application{
         
         HBox pBox = new HBox();
         Label pLabel = new Label("Protein(g):");
+        pLabel.setMinWidth(100);
         prot = new TextField();
         prot.setEditable(false);
         pBox.getChildren().addAll(pLabel, prot);
@@ -258,6 +276,7 @@ public class FinalProject extends Application{
 
         HBox cBox = new HBox();
         Label cLabel = new Label("Carbs(g):");
+        cLabel.setMinWidth(100);
         carb = new TextField();
         carb.setEditable(false);
         cBox.getChildren().addAll(cLabel, carb);
@@ -265,6 +284,7 @@ public class FinalProject extends Application{
 
         HBox fBox = new HBox();
         Label fLabel = new Label("Fat(g):");
+        fLabel.setMinWidth(100);
         fats = new TextField();
         fats.setEditable(false);
         fBox.getChildren().addAll(fLabel, fats);
@@ -272,6 +292,7 @@ public class FinalProject extends Application{
 
         HBox mBox = new HBox();
         Label mLabel = new Label("Price($):");
+        mLabel.setMinWidth(100);
         money = new TextField();
         money.setEditable(false);
         mBox.getChildren().addAll(mLabel, money);
@@ -279,12 +300,16 @@ public class FinalProject extends Application{
 
         HBox catBox = new HBox();
         Label catLabel = new Label("Category:");
+        catLabel.setMinWidth(100);
         cat = new TextField();
         cat.setEditable(false);
         catBox.getChildren().addAll(catLabel, cat);
         catBox.setAlignment(Pos.CENTER_RIGHT);
 
         showCase.getChildren().addAll(nBox,catBox,caBox,pBox,cBox,fBox,mBox);
+        showCase.setAlignment(Pos.CENTER_RIGHT);
+        showCase.setPadding(new Insets(10, 10, 10, 10));
+        showCase.setSpacing(5);
         showCase.setVisible(false);
         cartSide.getChildren().addAll(showCase);
 
@@ -297,6 +322,8 @@ public class FinalProject extends Application{
         amT.setMinWidth(50);
         addtoCBox.getChildren().addAll(hide,amT, am, addToCart);
         addtoCBox.setAlignment(Pos.BOTTOM_RIGHT);
+        addtoCBox.setSpacing(2);
+        addtoCBox.setPadding(new Insets(10, 10, 10, 10));
         main.add(addtoCBox, 2,2);
         addtoCBox.setVisible(false);
     }
@@ -397,6 +424,13 @@ public class FinalProject extends Application{
         Button checkout = new Button("Checkout");
         checkout.setOnAction(e->{
             tabPane.getSelectionModel().select(checkOut);
+        });
+
+        table.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.BACK_SPACE && table.getSelectionModel().getSelectedItem() != null) {
+                shoppingCart.removeItem(table.getSelectionModel().getSelectedItem());
+                observableCart.remove(table.getSelectionModel().getSelectedItem());
+            }
         });
 
         HBox checkOutBox = new HBox();
