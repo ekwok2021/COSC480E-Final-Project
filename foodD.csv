@@ -1,47 +1,47 @@
-Name,Price,Calories,Protein,Fat,Carbs,Category
-Grilled Chicken Sandwich,5.99,380,30,7,40,Sandwich
-Caesar Salad,7.49,350,12,28,12,Salad
-Cheese Pizza Slice,2.99,285,12,10,36,Pizza
-Veggie Burger,6.49,420,22,12,40,Burger
-Greek Yogurt Parfait,3.99,200,15,2,25,Snack
-Spaghetti Bolognese,8.99,590,25,20,75,Pasta
-Sushi Roll (8 pieces),9.99,450,15,5,70,Sushi
-Tofu Stir Fry,7.99,480,18,15,65,Asian Cuisine
-Fish Tacos (2),6.99,450,20,15,45,Mexican
-BLT Sandwich,4.99,420,17,23,35,Sandwich
-Chicken Caesar Wrap,6.99,560,32,25,46,Wrap
-Hawaiian Pizza Slice,3.49,320,14,12,40,Pizza
-Egg Salad Sandwich,4.49,400,16,25,30,Sandwich
-Turkey Club Sandwich,7.49,520,28,28,40,Sandwich
-Caprese Salad,7.99,320,14,22,20,Salad
-Tuna Salad Sandwich,6.99,420,25,20,35,Sandwich
-Tomato Soup (12 oz),4.49,150,4,8,18,Soup
-Pad Thai,8.99,600,25,15,80,Asian Cuisine
-Bacon and Cheese Omelette,7.99,450,28,30,5,Breakfast
-Pancakes (3),5.99,550,12,15,90,Breakfast
-French Toast,5.99,450,12,15,70,Breakfast
-Grilled Veggie Panini,6.99,420,12,20,55,Sandwich
-Philly Cheesesteak,7.99,690,50,30,50,Sandwich
-Chicken Quesadilla,6.99,550,28,28,50,Mexican
-Chicken Fried Rice,7.99,550,20,15,75,Asian Cuisine
-Taco Salad,7.49,700,30,40,60,Salad
-Black Bean Soup (12 oz),4.99,200,12,1,35,Soup
-Miso Soup (12 oz),3.49,90,6,3,8,Asian Cuisine
-Cobb Salad,8.99,550,40,30,20,Salad
-Poke Bowl,9.99,500,30,15,60,Sushi
-Veggie Pizza Slice,3.29,290,12,11,38,Pizza
-Egg and Cheese Croissant,4.99,420,17,25,35,Breakfast
-Bagel with Cream Cheese,3.49,350,11,12,52,Breakfast
-Sausage and Egg Biscuit,4.49,520,20,32,40,Breakfast
-Apple Cinnamon Muffin,2.99,340,5,15,50,Snack
-Chocolate Chip Cookie,1.99,190,2,10,25,Snack
-Brownie,2.49,300,3,15,40,Snack
-Cupcake,3.49,400,4,20,50,Snack
-Macaroni and Cheese,7.49,550,20,30,55,Pasta
-Fettuccine Alfredo,8.99,800,25,45,70,Pasta
-Lasagna,9.99,760,30,35,85,Pasta
-Chicken Burrito,7.49,650,35,25,70,Mexican
-Nachos,8.99,800,20,45,75,Mexican
-Chicken Enchiladas,9.99,700,30,25,80,Mexican
-Gazpacho (12 oz),4.99,150,4,4,20,Soup
-Lentil Soup (12 oz),4.49,200,14,2,30,Soup
+Name,Price,Calories,Protein,Fat,Carbs,Category,Image File Name
+Grilled Chicken Sandwich,5.99,380,30,7,40,Sandwich,Grilled_Chicken_Sandwich.png
+Caesar Salad,7.49,350,12,28,12,Salad,Ceasar_Salad.png
+Cheese Pizza Slice,2.99,285,12,10,36,Pizza,Cheese_Pizza_Slice.png
+Veggie Burger,6.49,420,22,12,40,Burger,Veggie_Burger.png
+Greek Yogurt Parfait,3.99,200,15,2,25,Snack,Greek_Yogurt_Parfait.png
+Spaghetti Bolognese,8.99,590,25,20,75,Pasta,Spaghetti_Bolognese.png
+Sushi Roll (8 pieces),9.99,450,15,5,70,Sushi,Sushi_Roll_(8_pieces).png
+Tofu Stir Fry,7.99,480,18,15,65,Asian Cuisine,Tofu_Stir_Fry.png
+Fish Tacos (2),6.99,450,20,15,45,Mexican,Fish_Tacos_(2).png
+BLT Sandwich,4.99,420,17,23,35,Sandwich,BLT_Sandwich.png
+Chicken Caesar Wrap,6.99,560,32,25,46,Wrap,Chicken_Caesar_Wrap.png
+Hawaiian Pizza Slice,3.49,320,14,12,40,Pizza,Hawaiian_Pizza_Slice.png
+Egg Salad Sandwich,4.49,400,16,25,30,Sandwich,Egg_Salad_Sandwich.png
+Turkey Club Sandwich,7.49,520,28,28,40,Sandwich,Turkey_Club_Sandwich.png
+Caprese Salad,7.99,320,14,22,20,Salad,Caprese_Salad.png
+Tuna Salad Sandwich,6.99,420,25,20,35,Sandwich,Tuna_Salad_Sandwich.png
+Tomato Soup (12 oz),4.49,150,4,8,18,Soup,Tomato_Soup_(12_oz).png
+Pad Thai,8.99,600,25,15,80,Asian Cuisine,Pad_Thai.png
+Bacon and Cheese Omelette,7.99,450,28,30,5,Breakfast,Bacon_and_Cheese_Omelette.png
+Pancakes (3),5.99,550,12,15,90,Breakfast,Pancakes_(3).png
+French Toast,5.99,450,12,15,70,Breakfast,French_Toast.png
+Grilled Veggie Panini,6.99,420,12,20,55,Sandwich,Grilled_Veggie_Panini.png
+Philly Cheesesteak,7.99,690,50,30,50,Sandwich,Philly_Cheesesteak.png
+Chicken Quesadilla,6.99,550,28,28,50,Mexican,Chicken_Quesadilla.png
+Chicken Fried Rice,7.99,550,20,15,75,Asian Cuisine,Chicken_Fried_Rice.png
+Taco Salad,7.49,700,30,40,60,Salad,Taco_Salad.png
+Black Bean Soup (12 oz),4.99,200,12,1,35,Soup,Black_Bean_Soup_(12_oz).png
+Miso Soup (12 oz),3.49,90,6,3,8,Asian Cuisine,Miso_Soup_(12_oz).png
+Cobb Salad,8.99,550,40,30,20,Salad,Cobb_Salad.png
+Poke Bowl,9.99,500,30,15,60,Sushi,Poke_Bowl.png
+Veggie Pizza Slice,3.29,290,12,11,38,Pizza,Veggie_Pizza_Slice.png
+Egg and Cheese Croissant,4.99,420,17,25,35,Breakfast,Egg_and_Cheese_Croissant.png
+Bagel with Cream Cheese,3.49,350,11,12,52,Breakfast,Bagel_with_Cream_Cheese.png
+Sausage and Egg Biscuit,4.49,520,20,32,40,Breakfast,Sausage_and_Egg_Biscuit.png
+Apple Cinnamon Muffin,2.99,340,5,15,50,Snack,Apple_Cinnamon_Muffin.png
+Chocolate Chip Cookie,1.99,190,2,10,25,Snack,Chocolate_Chip_Cookie.png
+Brownie,2.49,300,3,15,40,Snack,Brownie.png
+Cupcake,3.49,400,4,20,50,Snack,Cupcake.png
+Macaroni and Cheese,7.49,550,20,30,55,Pasta,Macaroni_and_Cheese.png
+Fettuccine Alfredo,8.99,800,25,45,70,Pasta,Fettuccine_Alfredo.png
+Lasagna,9.99,760,30,35,85,Pasta,Lasagna.png
+Chicken Burrito,7.49,650,35,25,70,Mexican,Chicken_Burrito.png
+Nachos,8.99,800,20,45,75,Mexican,Nachos.png
+Chicken Enchiladas,9.99,700,30,25,80,Mexican,Chicken_Enchiladas.png
+Gazpacho (12 oz),4.99,150,4,4,20,Soup,Gazpacho_(12_oz).png
+Lentil Soup (12 oz),4.49,200,14,2,30,Soup,Lentil_Soup_(12_oz).png

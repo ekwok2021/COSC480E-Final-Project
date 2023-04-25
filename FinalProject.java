@@ -58,7 +58,7 @@ import javafx.scene.control.ProgressIndicator;
 
 public class FinalProject extends Application{
 
-    private final int WIDTH = 550;  // arbitrary number: change and update comments
+    private final int WIDTH = 600;  // arbitrary number: change and update comments
     private final int HEIGHT = 650;
     TabPane tabPane;
     Tab home;
@@ -92,6 +92,17 @@ public class FinalProject extends Application{
     TextField am;
     Button hide;
     Button addToCart;
+    HashMap<String, Image> imageMap = new HashMap<>();
+    ImageView showImage;
+
+    //Goals
+    Integer fatGoal = 78;
+    Integer carbGoal = 364;
+    Integer proteinGoal = 166;
+
+    Integer currentFat = 0;
+    Integer currentCarb = 0;
+    Integer currentProtein = 0;
 
     //cart
     Order shoppingCart = new Order();
@@ -211,6 +222,7 @@ public class FinalProject extends Application{
         coll2.setPercentWidth(50);
         shopper.getColumnConstraints().addAll(coll1, coll2);
         shopper.setAlignment(Pos.CENTER);
+        //shopper.setPrefWidth(Integer.MAX_VALUE);
         
         populateShopGrid();
 
@@ -225,14 +237,30 @@ public class FinalProject extends Application{
         for(int i =0; i<searched.getTotal();i++){
             VBox temp = new VBox();
             temp.setAlignment(Pos.CENTER);
+            Image image;
+            try ( FileInputStream inputstream = new FileInputStream(searched.getItem(i).getImage()); ) {
+                image = new Image(inputstream);
+            } // fileIn is closed
+            catch (IOException e) {
+                image = new Image("Ceasar_Salad.png");
+            }
+            //FileInputStream inputstream = new FileInputStream(searched.getItem(i).getImage()); 
+            imageMap.put(searched.getItem(i).getName(),image);
+            ImageView imageView = new ImageView(image); 
+            imageView.setFitHeight(50); 
+            imageView.setFitWidth(50); 
+            imageView.setPreserveRatio(true);  
+            
             Label l = new Label(searched.getItem(i).getName());
             Button show = new Button("Show");
             buttons.put(show, searched.getItem(i));
             show.setOnAction(e -> {
                 showItem(buttons.get(show));
             });
-            temp.getChildren().addAll(l,show);
+            temp.getChildren().addAll(imageView,l,show);
             temp.setAlignment(Pos.CENTER);
+            temp.setSpacing(5);
+            temp.setPadding(new Insets(5, 5, 5, 5));
             shopper.add(temp, col, row);
             shopper.setAlignment(Pos.CENTER);
             if(i!=0&&i%2!=0){
@@ -305,8 +333,10 @@ public class FinalProject extends Application{
         cat.setEditable(false);
         catBox.getChildren().addAll(catLabel, cat);
         catBox.setAlignment(Pos.CENTER_RIGHT);
-
-        showCase.getChildren().addAll(nBox,catBox,caBox,pBox,cBox,fBox,mBox);
+        
+        Image im = new Image("Grilled_Chicken_Sandwich.png");
+        showImage = new ImageView(im);
+        showCase.getChildren().addAll(nBox,catBox,caBox,pBox,cBox,fBox,mBox,showImage);
         showCase.setAlignment(Pos.CENTER_RIGHT);
         showCase.setPadding(new Insets(10, 10, 10, 10));
         showCase.setSpacing(5);
@@ -331,7 +361,7 @@ public class FinalProject extends Application{
     private void showItem(Item i){
         showCase.setVisible(true);
         addtoCBox.setVisible(true);
-        
+        showCase.getChildren().remove(showImage);
         name.setText(String.valueOf(i.getName()));
         carb.setText(String.valueOf(i.getCarbs()));
         cals.setText(String.valueOf(i.getCalorie()));
@@ -339,6 +369,11 @@ public class FinalProject extends Application{
         cat.setText(String.valueOf(i.getCategory()));
         prot.setText(String.valueOf(i.getProtein()));
         fats.setText(String.valueOf(i.getFat()));
+        showImage = new ImageView(imageMap.get(i.getName()));
+        showImage.setFitHeight(200); 
+        showImage.setFitWidth(200); 
+        showImage.setPreserveRatio(true);  
+        showCase.getChildren().addAll(showImage);
         addToCart.setOnAction(e->{
             Boolean t = false;
             for(int j = 0; j<shoppingCart.getTotal(); j++){
@@ -346,6 +381,9 @@ public class FinalProject extends Application{
                     observableCart.remove(shoppingCart.getItem(j));
                     shoppingCart.getItem(j).setAmount(shoppingCart.getItem(j).getAmount()+Integer.valueOf(am.getText()));
                     observableCart.add(shoppingCart.getItem(j));
+                    currentCarb += shoppingCart.getItem(j).getCarbs();
+                    currentFat += shoppingCart.getItem(j).getFat();
+                    currentProtein += shoppingCart.getItem(j).getProtein();
                     t = true;
                     break;
                 }
@@ -359,6 +397,7 @@ public class FinalProject extends Application{
             
         });
         hide.setOnAction(e->{
+            showCase.getChildren().remove(showImage);
             addtoCBox.setVisible(false);
             showCase.setVisible(false);
         });
@@ -464,7 +503,8 @@ public class FinalProject extends Application{
                 int fat = Integer.parseInt(values[4]);
                 int carbs = Integer.parseInt(values[5]);
                 String category = values[6];
-                Item item = new Item(name, 0, price, calories, protein, fat, carbs, category);
+                String image = values[7];
+                Item item = new Item(name, 0, price, calories, protein, fat, carbs, category, image);
                 itemsArray.add(item);
                 //System.out.println(item.toString());
                 order.addItem(item);

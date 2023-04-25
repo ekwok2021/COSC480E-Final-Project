@@ -38,6 +38,7 @@ public class Item{
     private double price;
     private double calories;
     private String category;
+    private String image;
     //image
     /**
      * Constructor
@@ -46,7 +47,7 @@ public class Item{
      * @param p: price of item.
      * @param calories: calories of item.
      */
-    public Item(String n, Integer a, double p, double calorieIn, int proteinIn, int fatIn, int carbsIn, String categoryIn){
+    public Item(String n, Integer a, double p, double calorieIn, int proteinIn, int fatIn, int carbsIn, String categoryIn, String imageIn){
         name = n;
         amount = a;
         price = p;
@@ -55,6 +56,7 @@ public class Item{
         fat = fatIn;
         carbs = carbsIn;
         category = categoryIn;
+        image = imageIn;
     }
     /**
      * Get method for name of fruit.
@@ -109,6 +111,9 @@ public class Item{
     }
     public String getCategory(){
         return category;
+    }
+    public String getImage(){
+        return image;
     }
 
     /**
