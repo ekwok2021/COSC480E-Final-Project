@@ -58,8 +58,8 @@ import javafx.scene.control.ProgressIndicator;
 
 public class FinalProject extends Application{
 
-    private final int WIDTH = 600;  // arbitrary number: change and update comments
-    private final int HEIGHT = 650;
+    private final int WIDTH = 650;  // arbitrary number: change and update comments
+    private final int HEIGHT = 700;
     TabPane tabPane;
     Tab home;
     Tab checkOut;
