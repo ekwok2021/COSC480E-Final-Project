@@ -102,6 +102,9 @@ public class FinalProject extends Application{
     Integer fatGoal = 78;
     Integer carbGoal = 364;
     Integer proteinGoal = 166;
+    ProgressBar proteinPBar;
+    ProgressBar carbPBar;
+    ProgressBar fatPBar;
 
     Integer currentFat = 0;
     Integer currentCarb = 0;
@@ -116,6 +119,11 @@ public class FinalProject extends Application{
     Double TOTALAMOUNT = 0.0;
     Double TOTALPRICE = 0.0;
 
+    //checkout
+    TableView<Item> checkoutTable= new TableView<>();
+    private ObservableList<Item> observableCartCopy = 
+        FXCollections.observableArrayList();
+
     public void start(Stage stage) {
         items = readIn();
         createTabs();
@@ -123,6 +131,7 @@ public class FinalProject extends Application{
         showCasing();
         main.add(cartSide, 2,1);
         fillCartContainer();
+        checkoutTable();
         Scene scene = new Scene(tabPane, WIDTH, HEIGHT);
         scene.getStylesheets().add(getClass().getResource("finalProjectStyle.css").toExternalForm());
         //fontSize.bind(scene.widthProperty().add(scene.heightProperty()).divide(50));
@@ -208,14 +217,6 @@ public class FinalProject extends Application{
         return searchBox;
     }
 
-    private void createPBar(){
-        pb = new ProgressBar(0);
-        pb.setPrefWidth(Integer.MAX_VALUE);
-        HBox p = new HBox();
-        p.getChildren().addAll(pb);
-        p.setPadding(new Insets(5, 10, 0, 5));
-        main.add(p, 1,2);
-    }
     private ScrollPane createShopGrid(){
         scroll = new ScrollPane();
         scroll.setPrefHeight(Integer.MAX_VALUE);
@@ -390,9 +391,6 @@ public class FinalProject extends Application{
                     observableCart.remove(shoppingCart.getItem(j));
                     shoppingCart.getItem(j).setAmount(shoppingCart.getItem(j).getAmount()+Integer.valueOf(am.getText()));
                     observableCart.add(shoppingCart.getItem(j));
-                    currentCarb += shoppingCart.getItem(j).getCarbs();
-                    currentFat += shoppingCart.getItem(j).getFat();
-                    currentProtein += shoppingCart.getItem(j).getProtein();
                     t = true;
                     break;
                 }
@@ -402,6 +400,11 @@ public class FinalProject extends Application{
                 observableCart.add(i);
                 i.setAmount(Integer.valueOf(am.getText()));
             }
+            currentCarb += i.getCarbs()*Integer.valueOf(am.getText());
+            currentFat += i.getFat()*Integer.valueOf(am.getText());
+            currentProtein += i.getProtein()*Integer.valueOf(am.getText());
+            updateGoalProgressBars();
+
             am.setText("");
             
         });
@@ -489,7 +492,93 @@ public class FinalProject extends Application{
 
     }
 
+    private void checkoutTable(){
+        VBox checkoutTableBox = new VBox();
+        observableCartCopy = observableCart;
+        checkoutTable.setItems(observableCartCopy);
+        checkoutTable.setEditable(true);
+        TableColumn<Item, Integer> amountCol = new TableColumn<Item, Integer>("Amount");
+        amountCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("amount"));
+        amountCol.setPrefWidth(150);
+        amountCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+		amountCol.setOnEditCommit(new EventHandler<CellEditEvent<Item, Integer>>() {
+			@Override
+			public void handle(CellEditEvent<Item, Integer> event) {
+				Item f = event.getRowValue();
+                TOTALAMOUNT=TOTALAMOUNT-f.getAmount();
+                TOTALPRICE= TOTALPRICE-(f.getPrice()*f.getAmount());
+				f.setAmount(event.getNewValue());
+                TOTALAMOUNT+=f.getAmount();
+                //amountTotal.setText(""+TOTALAMOUNT);
+                TOTALPRICE+=(f.getAmount()*f.getPrice());
+                //priceTotal.setText("$"+TOTALPRICE);
+			}
+		});
 
+        TableColumn<Item, String> nameCol = new TableColumn<Item, String>("Item");
+        nameCol.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+        nameCol.setPrefWidth(150);
+
+        TableColumn<Item, Double> priceCol = new TableColumn<Item, Double>("Price");
+        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+        priceCol.setPrefWidth(150);
+
+        /* 
+        TableColumn<Item, Double> calorieCol = new TableColumn<Item, Double>("Cals");
+        calorieCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("calories"));
+        calorieCol.setPrefWidth(150);
+        */
+
+        checkoutTable.getColumns().addAll(nameCol, amountCol, priceCol);
+
+        checkoutTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        checkoutTable.setPrefSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        checkoutTable.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.BACK_SPACE && table.getSelectionModel().getSelectedItem() != null) {
+                shoppingCart.removeItem(table.getSelectionModel().getSelectedItem());
+                observableCart.remove(table.getSelectionModel().getSelectedItem());
+            }
+        });
+        
+        checkoutTableBox.getChildren().addAll(checkoutTable);
+
+
+        checkOut.setContent(checkoutTableBox);
+    }
+
+
+    private void createPBar(){
+        int progressBarWidth = 380;
+
+        proteinPBar = new ProgressBar();
+        proteinPBar.setStyle("-fx-accent: blue;");
+        proteinPBar.setProgress(currentProtein / proteinGoal);
+        proteinPBar.setPrefWidth(progressBarWidth);
+
+        carbPBar = new ProgressBar();
+        carbPBar.setStyle("-fx-accent: green;");
+        carbPBar.setProgress(currentCarb / carbGoal);
+        carbPBar.setPrefWidth(progressBarWidth);
+
+        fatPBar = new ProgressBar();
+        fatPBar.setStyle("-fx-accent: red;");
+        fatPBar.setProgress(currentFat / fatGoal);
+        fatPBar.setPrefWidth(progressBarWidth);
+
+        VBox goalProgressBars = new VBox(10);
+        goalProgressBars.getChildren().addAll(proteinPBar, carbPBar, fatPBar);
+        goalProgressBars.setAlignment(Pos.BOTTOM_LEFT);
+        main.add(goalProgressBars, 1, 2);
+    }
+
+    private void updateGoalProgressBars() {
+        proteinPBar.setProgress(currentProtein / proteinGoal);
+        System.out.println("protein: " + currentProtein);
+        carbPBar.setProgress(currentCarb / carbGoal);
+        System.out.println("carb: " + currentCarb);
+        fatPBar.setProgress(currentFat / fatGoal);
+        System.out.println("fat: " + currentFat);
+    }
 
     private Order readIn(){
         Order order = new Order();
