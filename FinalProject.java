@@ -56,6 +56,7 @@ import java.util.HashMap;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 
+
 public class FinalProject extends Application{
 
     private final int WIDTH = 650;  // arbitrary number: change and update comments
@@ -75,6 +76,8 @@ public class FinalProject extends Application{
     VBox showCase;
     HBox addtoCBox = new HBox();
     ProgressBar pb;
+    private static final String IMAGE_CLASS = "image" ;
+    private static final String SHOPPER_STYLE = "shopper" ;
     //search
     Order searched = new Order();
     ScrollPane scroll;
@@ -222,6 +225,7 @@ public class FinalProject extends Application{
         coll2.setPercentWidth(50);
         shopper.getColumnConstraints().addAll(coll1, coll2);
         shopper.setAlignment(Pos.CENTER);
+        shopper.getStyleClass().add(SHOPPER_STYLE);
         //shopper.setPrefWidth(Integer.MAX_VALUE);
         
         populateShopGrid();
@@ -252,12 +256,17 @@ public class FinalProject extends Application{
             imageView.setPreserveRatio(true);  
             
             Label l = new Label(searched.getItem(i).getName());
-            Button show = new Button("Show");
+            VBox graphic  = new VBox();
+            graphic.setAlignment(Pos.CENTER);
+            graphic.getChildren().addAll(imageView, l);
+            Button show = new Button();
+            show.getStyleClass().add(IMAGE_CLASS);
+            show.setGraphic(graphic);
             buttons.put(show, searched.getItem(i));
             show.setOnAction(e -> {
                 showItem(buttons.get(show));
             });
-            temp.getChildren().addAll(imageView,l,show);
+            temp.getChildren().addAll(show);
             temp.setAlignment(Pos.CENTER);
             temp.setSpacing(5);
             temp.setPadding(new Insets(5, 5, 5, 5));
