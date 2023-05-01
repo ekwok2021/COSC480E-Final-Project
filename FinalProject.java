@@ -55,6 +55,9 @@ import javafx.collections.transformation.FilteredList;
 import java.util.HashMap; 
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.DatePicker;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class FinalProject extends Application{
@@ -105,6 +108,11 @@ public class FinalProject extends Application{
     ProgressBar proteinPBar;
     ProgressBar carbPBar;
     ProgressBar fatPBar;
+    ProgressBar proteinPBarCheckout;
+    ProgressBar carbPBarCheckout;
+    ProgressBar fatPBarCheckout;
+
+    HashMap <LocalDate, Order> orderDates= new HashMap<>();
 
     Integer currentFat = 0;
     Integer currentCarb = 0;
@@ -164,6 +172,8 @@ public class FinalProject extends Application{
         createShop();
         //ProgressBar
         createPBar();
+
+        createPBarCheckout();
 
 
         home.setContent(main);
@@ -404,6 +414,7 @@ public class FinalProject extends Application{
             currentFat += i.getFat()*Integer.valueOf(am.getText());
             currentProtein += i.getProtein()*Integer.valueOf(am.getText());
             updateGoalProgressBars();
+            updateGoalProgressBarsCheckout();
 
             am.setText("");
             
@@ -547,13 +558,82 @@ public class FinalProject extends Application{
                 currentFat -= it.getFat()*it.getAmount();
                 currentProtein -= it.getProtein()*it.getAmount();
                 updateGoalProgressBars();
+                updateGoalProgressBarsCheckout();
             }
         });
         
-        checkoutTableBox.getChildren().addAll(checkoutTable);
+        checkoutTableBox.getChildren().addAll(checkoutTable, createPBarCheckout(), createDatePicker());
 
 
         checkOut.setContent(checkoutTableBox);
+    }
+
+    private VBox createPBarCheckout(){
+        int progressBarWidth = 380;
+
+        HBox proteinBox = new HBox();
+        proteinBox.setPadding(new Insets(5, 5, 5, 5));
+        Label proteinLabel = new Label("Protein: ");
+        proteinLabel.setMinWidth(50);
+        proteinPBarCheckout = new ProgressBar();
+        proteinPBarCheckout.setStyle("-fx-accent: blue;");
+        proteinPBarCheckout.setProgress(currentProtein / proteinGoal);
+        proteinPBarCheckout.setPrefWidth(progressBarWidth);
+        proteinBox.getChildren().addAll(proteinLabel, proteinPBarCheckout);
+
+        HBox carbBox = new HBox();
+        carbBox.setPadding(new Insets(5, 5, 5, 5));
+        Label carbLabel = new Label("Carbs: ");
+        carbLabel.setMinWidth(50);
+        carbPBarCheckout = new ProgressBar();
+        carbPBarCheckout.setStyle("-fx-accent: green;");
+        carbPBarCheckout.setProgress(currentCarb / carbGoal);
+        carbPBarCheckout.setPrefWidth(progressBarWidth);
+        carbBox.getChildren().addAll(carbLabel, carbPBarCheckout);
+
+        HBox fatBox = new HBox();
+        fatBox.setPadding(new Insets(5, 5, 5, 5));
+        Label fatLabel = new Label("Fat: ");
+        fatLabel.setMinWidth(50);
+        fatPBarCheckout = new ProgressBar();
+        fatPBarCheckout.setStyle("-fx-accent: red;");
+        fatPBarCheckout.setProgress(currentFat / fatGoal);
+        fatPBarCheckout.setPrefWidth(progressBarWidth);
+        fatBox.getChildren().addAll(fatLabel, fatPBarCheckout);
+
+        VBox goalProgressBars = new VBox(10);
+        goalProgressBars.getChildren().addAll(proteinBox, carbBox, fatBox);
+        goalProgressBars.setAlignment(Pos.BOTTOM_LEFT);
+        
+        return goalProgressBars;
+    }
+    private void updateGoalProgressBarsCheckout() {
+        proteinPBarCheckout.setProgress(Double.valueOf(currentProtein) / Double.valueOf(proteinGoal));
+        //System.out.println("protein: " + currentProtein);
+        carbPBarCheckout.setProgress(Double.valueOf(currentCarb) / Double.valueOf(carbGoal));
+        //System.out.println("carb: " + currentCarb);
+        fatPBarCheckout.setProgress(Double.valueOf(currentFat) / Double.valueOf(fatGoal));
+        //System.out.println("fat: " + currentFat);
+    }
+
+    private HBox createDatePicker(){
+        DatePicker datePicker = new DatePicker();
+        Button checkout = new Button("Checkout");
+        DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("MM dd, YYYY");
+
+        checkout.setOnAction(evt -> {
+            LocalDate date = datePicker.getValue();
+            System.out.println(date);
+            System.out.println(shoppingCart);
+            orderDates.put(date, shoppingCart);
+            System.out.println(orderDates);
+            for(int j = 0; j<shoppingCart.getTotal(); j++){
+                observableCartCopy.remove(shoppingCart.getItem(j));
+            }
+        });
+        HBox datePickerBox = new HBox();
+        datePickerBox.getChildren().addAll(datePicker, checkout);
+        return datePickerBox;
     }
 
 
@@ -643,4 +723,8 @@ public class FinalProject extends Application{
         }
         return order;
     }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
