@@ -175,6 +175,7 @@ public class FinalProject extends Application{
 
         createPBarCheckout();
 
+        setGoals();
 
         home.setContent(main);
     }
@@ -506,6 +507,43 @@ public class FinalProject extends Application{
 
         cartContainer.getChildren().addAll(table, checkOutBox);
 
+    }
+
+    private void setGoals(){
+        VBox goalBox = new VBox();
+
+        TextField carbGoalField = new TextField(String.valueOf(carbGoal));
+        Button carbGoalButton = new Button("Set Carb Goal"); 
+        carbGoalButton.setOnAction(evt -> {
+            carbGoal = Integer.valueOf(carbGoalField.getText());
+            updateGoalProgressBars();
+            updateGoalProgressBarsCheckout();
+        });
+        HBox carbGoalBox = new HBox();
+        carbGoalBox.getChildren().addAll(carbGoalField, carbGoalButton);
+
+        TextField proteinGoalField = new TextField(String.valueOf(proteinGoal));
+        Button proteinGoalButton = new Button("Set Protein Goal");
+        proteinGoalButton.setOnAction(evt -> {
+            proteinGoal = Integer.valueOf(proteinGoalField.getText());
+            updateGoalProgressBars();
+            updateGoalProgressBarsCheckout();
+        });
+        HBox proteinGoalBox = new HBox();
+        proteinGoalBox.getChildren().addAll(proteinGoalField, proteinGoalButton);
+
+        TextField fatGoalField = new TextField(String.valueOf(fatGoal));
+        Button fatGoalButton = new Button("Set Fat Goal");
+        fatGoalButton.setOnAction(evt -> {
+            fatGoal = Integer.valueOf(fatGoalField.getText());
+            updateGoalProgressBars();
+            updateGoalProgressBarsCheckout();
+        });
+        HBox fatGoalBox = new HBox();
+        fatGoalBox.getChildren().addAll(fatGoalField, fatGoalButton);
+
+        goalBox.getChildren().addAll(carbGoalBox, proteinGoalBox, fatGoalBox);
+        goalSetter.setContent(goalBox);
     }
 
     private void checkoutTable(){
