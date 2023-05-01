@@ -478,9 +478,14 @@ public class FinalProject extends Application{
         });
 
         table.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.BACK_SPACE && table.getSelectionModel().getSelectedItem() != null) {
-                shoppingCart.removeItem(table.getSelectionModel().getSelectedItem());
-                observableCart.remove(table.getSelectionModel().getSelectedItem());
+            Item it = table.getSelectionModel().getSelectedItem();
+            if (e.getCode() == KeyCode.BACK_SPACE && it != null) {
+                shoppingCart.removeItem(it);
+                observableCart.remove(it);
+                currentCarb -= it.getCarbs()*it.getAmount();
+                currentFat -= it.getFat()*it.getAmount();
+                currentProtein -= it.getProtein()*it.getAmount();
+                updateGoalProgressBars();
             }
         });
 
@@ -534,9 +539,14 @@ public class FinalProject extends Application{
         checkoutTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         checkoutTable.setPrefSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
         checkoutTable.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.BACK_SPACE && table.getSelectionModel().getSelectedItem() != null) {
-                shoppingCart.removeItem(table.getSelectionModel().getSelectedItem());
-                observableCart.remove(table.getSelectionModel().getSelectedItem());
+            Item it = checkoutTable.getSelectionModel().getSelectedItem();
+            if (e.getCode() == KeyCode.BACK_SPACE && it != null) {
+                shoppingCart.removeItem(it);
+                observableCart.remove(it);
+                currentCarb -= it.getCarbs()*it.getAmount();
+                currentFat -= it.getFat()*it.getAmount();
+                currentProtein -= it.getProtein()*it.getAmount();
+                updateGoalProgressBars();
             }
         });
         
@@ -550,34 +560,49 @@ public class FinalProject extends Application{
     private void createPBar(){
         int progressBarWidth = 380;
 
+        HBox proteinBox = new HBox();
+        proteinBox.setPadding(new Insets(5, 5, 5, 5));
+        Label proteinLabel = new Label("Protein: ");
+        proteinLabel.setMinWidth(50);
         proteinPBar = new ProgressBar();
         proteinPBar.setStyle("-fx-accent: blue;");
         proteinPBar.setProgress(currentProtein / proteinGoal);
         proteinPBar.setPrefWidth(progressBarWidth);
+        proteinBox.getChildren().addAll(proteinLabel, proteinPBar);
 
+        HBox carbBox = new HBox();
+        carbBox.setPadding(new Insets(5, 5, 5, 5));
+        Label carbLabel = new Label("Carbs: ");
+        carbLabel.setMinWidth(50);
         carbPBar = new ProgressBar();
         carbPBar.setStyle("-fx-accent: green;");
         carbPBar.setProgress(currentCarb / carbGoal);
         carbPBar.setPrefWidth(progressBarWidth);
+        carbBox.getChildren().addAll(carbLabel, carbPBar);
 
+        HBox fatBox = new HBox();
+        fatBox.setPadding(new Insets(5, 5, 5, 5));
+        Label fatLabel = new Label("Fat: ");
+        fatLabel.setMinWidth(50);
         fatPBar = new ProgressBar();
         fatPBar.setStyle("-fx-accent: red;");
         fatPBar.setProgress(currentFat / fatGoal);
         fatPBar.setPrefWidth(progressBarWidth);
+        fatBox.getChildren().addAll(fatLabel, fatPBar);
 
         VBox goalProgressBars = new VBox(10);
-        goalProgressBars.getChildren().addAll(proteinPBar, carbPBar, fatPBar);
+        goalProgressBars.getChildren().addAll(proteinBox, carbBox, fatBox);
         goalProgressBars.setAlignment(Pos.BOTTOM_LEFT);
         main.add(goalProgressBars, 1, 2);
     }
 
     private void updateGoalProgressBars() {
-        proteinPBar.setProgress(currentProtein / proteinGoal);
-        System.out.println("protein: " + currentProtein);
-        carbPBar.setProgress(currentCarb / carbGoal);
-        System.out.println("carb: " + currentCarb);
-        fatPBar.setProgress(currentFat / fatGoal);
-        System.out.println("fat: " + currentFat);
+        proteinPBar.setProgress(Double.valueOf(currentProtein) / Double.valueOf(proteinGoal));
+       // System.out.println("protein: " + currentProtein);
+        carbPBar.setProgress(Double.valueOf(currentCarb) / Double.valueOf(carbGoal));
+        //System.out.println("carb: " + currentCarb);
+        fatPBar.setProgress(Double.valueOf(currentFat) / Double.valueOf(fatGoal));
+       // System.out.println("fat: " + currentFat);
     }
 
     private Order readIn(){
