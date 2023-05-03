@@ -1,4 +1,7 @@
 import javafx.application.Application;
+import javafx.util.Duration;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -52,7 +55,10 @@ import javafx.scene.image.*;
 import java.io.*;
 import javafx.scene.control.ScrollPane;
 import javafx.collections.transformation.FilteredList;
-import java.util.HashMap; 
+import java.util.HashMap;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.DatePicker;
@@ -114,9 +120,9 @@ public class FinalProject extends Application{
 
     HashMap <LocalDate, Order> orderDates= new HashMap<>();
 
-    Integer currentFat = 0;
-    Integer currentCarb = 0;
-    Integer currentProtein = 0;
+    Double currentFat = 0.0;
+    Double currentCarb = 0.0;
+    Double currentProtein = 0.0;
 
     //cart
     Order shoppingCart = new Order();
@@ -132,6 +138,10 @@ public class FinalProject extends Application{
     private ObservableList<Item> observableCartCopy = 
         FXCollections.observableArrayList();
 
+    //Calendar
+    ObservableList<Item> Cart = FXCollections.observableArrayList();
+    TableView<Item> ctable = new TableView<>();
+
     public void start(Stage stage) {
         items = readIn();
         createTabs();
@@ -140,6 +150,7 @@ public class FinalProject extends Application{
         main.add(cartSide, 2,1);
         fillCartContainer();
         checkoutTable();
+        createCalendarTab();
         Scene scene = new Scene(tabPane, WIDTH, HEIGHT);
         scene.getStylesheets().add(getClass().getResource("finalProjectStyle.css").toExternalForm());
         //fontSize.bind(scene.widthProperty().add(scene.heightProperty()).divide(50));
@@ -396,6 +407,7 @@ public class FinalProject extends Application{
         showImage.setPreserveRatio(true);  
         showCase.getChildren().addAll(showImage);
         addToCart.setOnAction(e->{
+            if(!am.getText().equals("")){
             Boolean t = false;
             for(int j = 0; j<shoppingCart.getTotal(); j++){
                 if(shoppingCart.getItem(j).getName().equals(i.getName())&&!am.getText().equals("")){
@@ -409,8 +421,11 @@ public class FinalProject extends Application{
             if(t == false&&!am.getText().equals("")){
                 shoppingCart.addItem(i);
                 observableCart.add(i);
+                //observableCartCopy.add(i);
                 i.setAmount(Integer.valueOf(am.getText()));
             }
+            animate(addToCart);
+           
             currentCarb += i.getCarbs()*Integer.valueOf(am.getText());
             currentFat += i.getFat()*Integer.valueOf(am.getText());
             currentProtein += i.getProtein()*Integer.valueOf(am.getText());
@@ -418,6 +433,7 @@ public class FinalProject extends Application{
             updateGoalProgressBarsCheckout();
 
             am.setText("");
+        }
             
         });
         hide.setOnAction(e->{
@@ -426,7 +442,30 @@ public class FinalProject extends Application{
             showCase.setVisible(false);
         });
     }
-
+    //https://genuinecoder.com/javafx-animation-tutorial/
+    private void animate(Button btn){
+        
+        Duration duration = Duration.millis(2500);
+        //Create new rotate transition
+        ScaleTransition scaleTransition = new ScaleTransition(duration, btn);
+        ScaleTransition scaleTransition2 = new ScaleTransition(duration, btn);
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), btn);
+        //Rotate by 200 degree
+        //Set how much X should enlarge
+        scaleTransition.setToX(4);
+        //Set how much Y should
+        scaleTransition.setToY(4);
+       
+        rotateTransition.setByAngle(360);
+        scaleTransition.play();
+        rotateTransition.play();
+         //Set how much X should enlarge
+         scaleTransition2.setToX(1);
+         //Set how much Y should
+         scaleTransition2.setToY(1);
+        scaleTransition2.play();
+    }
+    
     //search functions
     private boolean searchFindsOrder(Item item, String searchText){
         return (item.getName().toLowerCase().contains(searchText.toLowerCase())) ||
@@ -483,7 +522,7 @@ public class FinalProject extends Application{
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setPrefSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-        //needs implemntation
+        
         Button checkout = new Button("Checkout");
         checkout.setOnAction(e->{
             tabPane.getSelectionModel().select(checkOut);
@@ -601,7 +640,9 @@ public class FinalProject extends Application{
         });
         
         checkoutTableBox.getChildren().addAll(checkoutTable, createPBarCheckout(), createDatePicker());
-
+        checkoutTableBox.setAlignment(Pos.CENTER);
+        checkoutTableBox.setSpacing(5);
+        checkoutTableBox.setPadding(new Insets(5, 5, 5, 5));
 
         checkOut.setContent(checkoutTableBox);
     }
@@ -640,6 +681,9 @@ public class FinalProject extends Application{
         fatBox.getChildren().addAll(fatLabel, fatPBarCheckout);
 
         VBox goalProgressBars = new VBox(10);
+        //goalProgressBars.setPadding(new Insets(5, 5, 5, 5));
+        goalProgressBars.setSpacing(5);
+        goalProgressBars.setAlignment(Pos.CENTER);
         goalProgressBars.getChildren().addAll(proteinBox, carbBox, fatBox);
         goalProgressBars.setAlignment(Pos.BOTTOM_LEFT);
         
@@ -660,17 +704,37 @@ public class FinalProject extends Application{
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("MM dd, YYYY");
 
         checkout.setOnAction(evt -> {
+            animate(checkout);
             LocalDate date = datePicker.getValue();
             System.out.println(date);
             System.out.println(shoppingCart);
-            orderDates.put(date, shoppingCart);
+            Order temp = new Order();
+            for(int i = 0; i<shoppingCart.getTotal();i++){
+                temp.addItem(shoppingCart.getItem(i));
+                observableCartCopy.remove(shoppingCart.getItem(i));
+                observableCart.remove(shoppingCart.getItem(i));
+            }
+            orderDates.put(date, temp);
             System.out.println(orderDates);
+            /* 
             for(int j = 0; j<shoppingCart.getTotal(); j++){
                 observableCartCopy.remove(shoppingCart.getItem(j));
+                observableCart.remove(shoppingCart.getItem(j));
             }
+            */
+            shoppingCart.clearOrder();
+            currentCarb = 0.0;
+            currentFat = 0.0;
+            currentProtein=0.0;
+            updateGoalProgressBars();
+            updateGoalProgressBarsCheckout();
         });
         HBox datePickerBox = new HBox();
+        datePickerBox.setAlignment(Pos.CENTER);
+        datePickerBox.setSpacing(5);
+        datePickerBox.setPadding(new Insets(5, 5, 5, 5));
         datePickerBox.getChildren().addAll(datePicker, checkout);
+        
         return datePickerBox;
     }
 
@@ -723,6 +787,69 @@ public class FinalProject extends Application{
        // System.out.println("fat: " + currentFat);
     }
 
+    private void createCalendarTab(){
+
+       
+        ctable.setItems(Cart);
+        TableColumn<Item, Integer> amountCol = new TableColumn<Item, Integer>("Amount");
+        amountCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("amount"));
+        amountCol.setPrefWidth(150);
+
+        TableColumn<Item, String> nameCol = new TableColumn<Item, String>("Item");
+        nameCol.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+        nameCol.setPrefWidth(150);
+
+        TableColumn<Item, Double> priceCol = new TableColumn<Item, Double>("Price");
+        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+        priceCol.setPrefWidth(150);
+
+        ctable.getColumns().addAll(nameCol, amountCol, priceCol);
+
+        ctable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        ctable.setPrefSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+        DatePicker dayPicker = new DatePicker();
+        Button seeDate = new Button("See Order");
+        seeDate.setOnAction(e->{
+            Cart.clear();
+            LocalDate date = dayPicker.getValue();
+            popCart(date);
+        });
+        Button dateCheckout = new Button("Checkout");
+        dateCheckout.setOnAction(e->{
+            animate(dateCheckout);
+            shoppingCart.clearOrder();
+            observableCart.clear();
+            for(Item i: Cart){
+                shoppingCart.addItem(i);
+                observableCart.add(i);
+            }
+            Cart.clear();
+            tabPane.getSelectionModel().select(checkOut);
+        });
+        HBox dateSeer = new HBox();
+        dateSeer.setSpacing(5);
+        dateSeer.setAlignment(Pos.CENTER);
+        dateSeer.setPadding(new Insets(5, 5, 5, 5));
+        dateSeer.getChildren().addAll(dayPicker, seeDate, dateCheckout);
+        VBox calendarTab = new VBox();
+        calendarTab.setSpacing(5);
+        calendarTab.setAlignment(Pos.CENTER);
+        calendarTab.setPadding(new Insets(5, 5, 5, 5));
+        calendarTab.getChildren().addAll(dateSeer, ctable);
+        calendar.setContent(calendarTab);
+    }
+    private void popCart(LocalDate d){
+        for(LocalDate od:orderDates.keySet()){
+            if(d.compareTo(od)==0){
+                Order o = orderDates.get(od);
+                for(int i =0; i<o.getTotal();i++){
+                    Cart.add(o.getItem(i));
+                }
+            }
+        } 
+    }
+
     private Order readIn(){
         Order order = new Order();
         ArrayList<Item> itemsArray = new ArrayList<>();
@@ -760,9 +887,6 @@ public class FinalProject extends Application{
             e.printStackTrace();
         }
         return order;
-    }
-    public static void main(String[] args) {
-        launch(args);
     }
 
 }

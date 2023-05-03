@@ -66,6 +66,9 @@ public class Order{
     public int getTotal(){
         return ORDER.size();
     }
+    public void clearOrder(){
+        ORDER.clear();
+    }
     public String toString(){
         String str = "";
         for(int i =0; i<ORDER.size();i++){
