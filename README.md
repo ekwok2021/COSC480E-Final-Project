@@ -48,3 +48,5 @@ For this project we plan on using a backend database that will likely either be 
     
 - Filtered Search Bar
     - Using the search bar, update the displayed Items grid that meets the name crieteria of whatever is entered into the search bar. Use a similar logic also for if something is selected within the Food Categories menu. With the search bar also ensure that capitalization errors are ignored, although further error checking might be difficult.
+
+<img width="602" alt="Screenshot 2023-05-04 at 10 51 35 AM" src="https://user-images.githubusercontent.com/78102462/236245561-94e1e5f4-a1f9-4a80-ba63-ebd00edc3d2c.png">
