@@ -75,6 +75,7 @@ public class FinalProject extends Application{
     Tab checkOut;
     Tab goalSetter;
     Tab calendar;
+    Tab reviews;
     Order items;
 
     //home
@@ -151,6 +152,7 @@ public class FinalProject extends Application{
         fillCartContainer();
         checkoutTable();
         createCalendarTab();
+        reviewTab();
         Scene scene = new Scene(tabPane, WIDTH, HEIGHT);
         scene.getStylesheets().add(getClass().getResource("finalProjectStyle.css").toExternalForm());
         //fontSize.bind(scene.widthProperty().add(scene.heightProperty()).divide(50));
@@ -172,7 +174,9 @@ public class FinalProject extends Application{
         goalSetter.setClosable(false);
         calendar = new Tab("Calendar");
         calendar.setClosable(false);
-        tabPane.getTabs().addAll(home, checkOut, goalSetter, calendar);
+        reviews = new Tab("Reviews");
+        reviews.setClosable(false);
+        tabPane.getTabs().addAll(home, checkOut, goalSetter, calendar, reviews);
     }
     private void createHome(){
         //Create Main Pane
@@ -500,6 +504,11 @@ public class FinalProject extends Application{
                 //amountTotal.setText(""+TOTALAMOUNT);
                 TOTALPRICE+=(f.getAmount()*f.getPrice());
                 //priceTotal.setText("$"+TOTALPRICE);
+                currentCarb = f.getCarbs()*Double.valueOf(f.getAmount());
+                currentFat = f.getFat()*Double.valueOf(f.getAmount());
+                currentProtein = f.getProtein()*Double.valueOf(f.getAmount());
+                updateGoalProgressBars();
+                updateGoalProgressBarsCheckout();
 			}
 		});
 
@@ -537,6 +546,7 @@ public class FinalProject extends Application{
                 currentFat -= it.getFat()*it.getAmount();
                 currentProtein -= it.getProtein()*it.getAmount();
                 updateGoalProgressBars();
+                updateGoalProgressBarsCheckout();
             }
         });
 
@@ -605,6 +615,11 @@ public class FinalProject extends Application{
                 //amountTotal.setText(""+TOTALAMOUNT);
                 TOTALPRICE+=(f.getAmount()*f.getPrice());
                 //priceTotal.setText("$"+TOTALPRICE);
+                currentCarb = f.getCarbs()*Double.valueOf(f.getAmount());
+                currentFat = f.getFat()*Double.valueOf(f.getAmount());
+                currentProtein = f.getProtein()*Double.valueOf(f.getAmount());
+                updateGoalProgressBars();
+                updateGoalProgressBarsCheckout();
 			}
 		});
 
@@ -887,6 +902,88 @@ public class FinalProject extends Application{
             e.printStackTrace();
         }
         return order;
+    }
+
+    private void reviewTab(){
+        VBox reviewBox = new VBox();
+
+            TextField reviewZero = new TextField("Best app ever-Jack");
+            reviewZero.setPrefWidth(Integer.MAX_VALUE);
+            TextField review = new TextField("Even better than real instacart!-Ethan");
+            review.setPrefWidth(Integer.MAX_VALUE);
+            TextField reviewOne = new TextField("One Star, never got my food...");
+            reviewOne.setPrefWidth(Integer.MAX_VALUE);
+            TextField reviewTwo = new TextField("Unbelievable, they stole my credit card info. I wish I could give 0 stars!");
+            reviewTwo.setPrefWidth(Integer.MAX_VALUE);
+            TextField reviewThree = new TextField("I got the wrong food, and the delivery driver was very rude. ONE STAR!");
+            reviewThree.setPrefWidth(Integer.MAX_VALUE);
+            TextField reviewFour = new TextField("Pretty sure this is just a pyramid scheme...how can I join?");
+            reviewFour.setPrefWidth(Integer.MAX_VALUE);
+
+            HBox r = new HBox();
+            r.getChildren().addAll(getImage(0), review);
+            HBox r0 = new HBox();
+            r0.getChildren().addAll(getImage(0), reviewZero);
+            HBox r1 = new HBox();
+            r1.getChildren().addAll(getImage(1), reviewOne);
+            HBox r2 = new HBox();
+            r2.getChildren().addAll(getImage(1), reviewTwo);
+            HBox r3 = new HBox();
+            r3.getChildren().addAll(getImage(1), reviewThree);
+            HBox r4 = new HBox();
+            r4.getChildren().addAll(getImage(0), reviewFour);
+
+            HBox r5 = new HBox();
+            r5.getChildren().addAll(getImage(4));
+            r5.setSpacing(20);
+            r5.setAlignment(Pos.CENTER);
+            reviewBox.setPadding(new Insets(10, 10, 10, 10));
+            
+            reviewBox.getChildren().addAll(r,r0,r4,r1,r2,r3,r5);
+            reviewBox.setSpacing(5);
+            reviewBox.setPadding(new Insets(5, 5, 5, 5));
+            reviewBox.setPrefHeight(Integer.MAX_VALUE);
+            reviews.setContent(reviewBox);
+    }
+    private ImageView getImage(Integer num){
+        Image image;
+        if(num == 1){
+            try ( FileInputStream inputstream = new FileInputStream("oneStar.png")) {
+                image = new Image(inputstream);
+            } // fileIn is closed
+            catch (IOException e) {
+                image = new Image("Ceasar_Salad.png");
+            }
+            ImageView imageView = new ImageView(image); 
+            imageView.setFitHeight(50); 
+            imageView.setFitWidth(50); 
+            imageView.setPreserveRatio(true);  
+            return imageView;
+        }
+        else if(num==0){
+            try ( FileInputStream inputstream = new FileInputStream("fiveStar.png")) {
+                image = new Image(inputstream);
+            } // fileIn is closed
+            catch (IOException e) {
+                image = new Image("Ceasar_Salad.png");
+            }
+            ImageView imageView = new ImageView(image); 
+            imageView.setFitHeight(50); 
+            imageView.setFitWidth(50); 
+            imageView.setPreserveRatio(true);  
+            return imageView;
+        }
+        try ( FileInputStream inputstream = new FileInputStream("award.png")) {
+            image = new Image(inputstream);
+        } // fileIn is closed
+        catch (IOException e) {
+            image = new Image("Ceasar_Salad.png");
+        }
+            ImageView imageView = new ImageView(image); 
+            imageView.setFitHeight(500); 
+            imageView.setFitWidth(500); 
+            imageView.setPreserveRatio(true);  
+            return imageView;
     }
 
 }
