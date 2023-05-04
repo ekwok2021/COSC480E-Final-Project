@@ -87,6 +87,20 @@ For this project we plan on using a backend database that will likely either be 
     - Cart: The cart is a TitledPane that can retract and expand to hide and show information. The TitledPane contains a table view which functions as the cart. The table view contains the item name, the price, and the amount of each item. Items are able to be deleted by selecting them in the table view, and then pressing the delete key. The amount can be changed by double clicking on the amount, changing the amount, and then pressing enter. It can also be changed by adding the same item to the cart. This will add the new amount to the previous amount. There is also a checkout button that takes the user to the checkout tab.
     - Information Group: The information group appears when the user clicks on an item. In this group, the all of the item's information is displayed, along with an image, and an add to cart interface. The user can input the amount and click the button to add the item to the cart. There is also a hide button which will hide all this information. 
 - CheckOut:
-    - 
+    - Table View: The main feature of the checkout tab is the table view. This table view functions the same as the one on the home screen, and contains all of the items currently in the cart.
+    - Progress Bars: These progress bars function the same as the ones on the home view, but they are a little bigger and easier to tell what the user's progress is.
+    - Date Picker/Checkout: The date picker allows the user to pick the date they would like to order for, and then click the checkout button to confirm the order. This clears the cart, and adds it to the HashMap of all orders made.
+- Goal Setter:
+    - The goal setter tab allows the user to set the goals for fat, protein, and carbs. These goals will update and change the way the progres bars fill up.
+- Calendar: 
+    - Date Picker/See Order: The date picker allows the user to choose a date they would like to view the order for. The user can see future orders and previous orders, allowing them to reorder carts that they have already ordered through the checkout button. 
+    - Table View: This table view shows the cart for the date the date picker is set to. This table view is not able to be edited, so if the user would like to edit it, they will have to click checkout and to it in the checkout tab. 
+- Reviews: 
+    - The reviews tab shows all the glowing reviews the app has gotten. 
 
 ### Images
+<img width="651" alt="Screenshot 2023-05-04 at 6 46 27 PM" src="https://user-images.githubusercontent.com/78102462/236345394-6b7fa8fc-575d-4361-822e-4d91e1f2aff1.png">
+<img width="646" alt="Screenshot 2023-05-04 at 6 47 22 PM" src="https://user-images.githubusercontent.com/78102462/236345508-6e390190-31eb-44d2-85ff-4f4a83ec85f6.png">
+<img width="648" alt="Screenshot 2023-05-04 at 6 47 44 PM" src="https://user-images.githubusercontent.com/78102462/236345561-300d75c6-3cf9-44af-a068-84f4d4b46fde.png">
+<img width="651" alt="Screenshot 2023-05-04 at 6 48 11 PM" src="https://user-images.githubusercontent.com/78102462/236345614-b4f9a1e5-cd26-4292-a890-68fb12f39ded.png">
+<img width="648" alt="Screenshot 2023-05-04 at 6 48 27 PM" src="https://user-images.githubusercontent.com/78102462/236345642-7819f755-f02c-4faf-8ab7-a8135af69eda.png">
