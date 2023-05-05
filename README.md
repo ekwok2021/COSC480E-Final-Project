@@ -31,23 +31,32 @@ For this project we plan on using a backend database that will likely either be 
 ### Objectives
 - Images for each Item
     - Have an image attached to an item that is able to be added to the shopping cart in order for the user to be able to see what they are selecting.
+    - *We were able to accomplish this by saving .png files for each item's image and including the image name in the csv file row for each item, allowing us to easily display each item as a button* 
 - Grid Display
     - Instead of a bland list of items like a basic table view, we want to implement a grid like construction that is able to be scrolled through. This would allow for the images of items to be more clearly seen, and allow more room for other information.
+    - *We were able to implement a grid like construction using a scroll pane with a grid pane, with v boxes inside each panes and the image button and item name within each v box.*
 - Backend Database
     - implement a backend database of items that contains all the information of each item so that the user does not have to input their own items.
+    - *We were able to implement a backend database of items using a .csv file with a line for each food item and their attributes.*
 - Tabs
     - Implement a way to switch the scene to another scene that has a different function an puropose. For example, switching from the shoppin screen to the tracker and checkout screens. This could be implemented with a tab pane, but we would want to switch the style up so the tabs at the top do not look like browser tabs. This could also be done using buttons to change the scene/redirect the user to the proper screen.
+    - *We were able to implement it by using a tab pane to implement all the tabs.*
 - Animation
     - implement an animation that plays when a user adds something to the shopping cart to provide feedback that an item has been added to the cart.
+    - *We were able to implement the button animation using the rotate transitions library.*
 - Pop up shopping cart
     - Instead of the shopping cart taking up its own tab or part of the screen at all times, the shopping cart, when clicked on, will drop down or pop up the list of items in the cart and include a checkout button. 
+    - *We were able to implemented a shipping cart using a titled lane.*
 - Calendar
     - Implement a Calendar that will allow the user to plan orders/meals ahead of time, as well as show previous orders/meals. This will allow users to keep track of their progress, reorder meals from the past, and plan orders/meals for the future.
+    - *We were able to implement a calendar using a date picker*
 - Progress bar
     - Implement a tracker, most likely a progress bar with  sections for each food group, that will allow the user to keep track of what food they have already added to the cart, and what food they still need to add in order to meet their goals. Would most likely be simlar to the apple storage bar, with the bar showing the breakdown of each element that contributes to it. For example, how much is protein, how much is fat, how much is carbs, etc.
-    
+    - *We implemented the progress bar using the progress bar package and connecting them to the global tracking variables we implemented.*
 - Filtered Search Bar
     - Using the search bar, update the displayed Items grid that meets the name crieteria of whatever is entered into the search bar. Use a similar logic also for if something is selected within the Food Categories menu. With the search bar also ensure that capitalization errors are ignored, although further error checking might be difficult.
+    - *We implemented the search bar to the presentation by doing a simple look up on a list variable containing the items.
+    
 ### Planning Images
 <img width="602" alt="Screenshot 2023-05-04 at 10 51 14 AM" src="https://user-images.githubusercontent.com/78102462/236245817-78aacf15-ddd2-4f74-9bb7-0ca7fa53adc9.png">
 
