@@ -216,6 +216,7 @@ public class FinalProject extends Application{
         cart.setExpanded(false);
         cartSide.getChildren().addAll(cart);
         cart.setContent(cartContainer);
+        cartSide.setPadding(new Insets(5, 5, 0, 0));
     }
 
     private void createShop(){
@@ -246,6 +247,8 @@ public class FinalProject extends Application{
     private ScrollPane createShopGrid(){
         scroll = new ScrollPane();
         scroll.setPrefHeight(Integer.MAX_VALUE);
+        //scroll.setFitToHeight(true);
+        //scroll.setFitToWidth(true);
         ColumnConstraints coll1 = new ColumnConstraints();
         coll1.setPercentWidth(50);
         ColumnConstraints coll2 = new ColumnConstraints();
@@ -253,7 +256,9 @@ public class FinalProject extends Application{
         shopper.getColumnConstraints().addAll(coll1, coll2);
         shopper.setAlignment(Pos.CENTER);
         shopper.getStyleClass().add(SHOPPER_STYLE);
+
         //shopper.setPrefWidth(Integer.MAX_VALUE);
+       // shopper.setPrefWidth(Integer.MAX_VALUE);
         
         populateShopGrid();
 
@@ -374,7 +379,7 @@ public class FinalProject extends Application{
         showImage = new ImageView(im);
         showCase.getChildren().addAll(nBox,catBox,caBox,pBox,cBox,fBox,mBox,showImage);
         showCase.setAlignment(Pos.CENTER_RIGHT);
-        showCase.setPadding(new Insets(10, 10, 10, 10));
+        showCase.setPadding(new Insets(5, 5, 5, 5));
         showCase.setSpacing(5);
         showCase.setVisible(false);
         cartSide.getChildren().addAll(showCase);
@@ -406,8 +411,8 @@ public class FinalProject extends Application{
         prot.setText(String.valueOf(i.getProtein()));
         fats.setText(String.valueOf(i.getFat()));
         showImage = new ImageView(imageMap.get(i.getName()));
-        showImage.setFitHeight(200); 
-        showImage.setFitWidth(200); 
+        showImage.setFitHeight(150); 
+        showImage.setFitWidth(150); 
         showImage.setPreserveRatio(true);  
         showCase.getChildren().addAll(showImage);
         addToCart.setOnAction(e->{
@@ -658,6 +663,7 @@ public class FinalProject extends Application{
         checkoutTableBox.setAlignment(Pos.CENTER);
         checkoutTableBox.setSpacing(5);
         checkoutTableBox.setPadding(new Insets(5, 5, 5, 5));
+        checkoutTableBox.setPrefWidth(Integer.MAX_VALUE);
 
         checkOut.setContent(checkoutTableBox);
     }
@@ -667,33 +673,39 @@ public class FinalProject extends Application{
 
         HBox proteinBox = new HBox();
         proteinBox.setPadding(new Insets(5, 5, 5, 5));
+        proteinBox.setPrefWidth(Integer.MAX_VALUE);
         Label proteinLabel = new Label("Protein: ");
         proteinLabel.setMinWidth(50);
         proteinPBarCheckout = new ProgressBar();
-        proteinPBarCheckout.setStyle("-fx-accent: blue;");
+        proteinPBarCheckout.setStyle("-fx-accent: #F66B0E;");
         proteinPBarCheckout.setProgress(currentProtein / proteinGoal);
         proteinPBarCheckout.setPrefWidth(progressBarWidth);
         proteinBox.getChildren().addAll(proteinLabel, proteinPBarCheckout);
+        proteinPBarCheckout.setPrefWidth(Integer.MAX_VALUE);
 
         HBox carbBox = new HBox();
         carbBox.setPadding(new Insets(5, 5, 5, 5));
+        carbBox.setPrefWidth(Integer.MAX_VALUE);
         Label carbLabel = new Label("Carbs: ");
         carbLabel.setMinWidth(50);
         carbPBarCheckout = new ProgressBar();
-        carbPBarCheckout.setStyle("-fx-accent: green;");
+        carbPBarCheckout.setStyle("-fx-accent: #205375;");
         carbPBarCheckout.setProgress(currentCarb / carbGoal);
         carbPBarCheckout.setPrefWidth(progressBarWidth);
         carbBox.getChildren().addAll(carbLabel, carbPBarCheckout);
+        carbPBarCheckout.setPrefWidth(Integer.MAX_VALUE);
 
         HBox fatBox = new HBox();
         fatBox.setPadding(new Insets(5, 5, 5, 5));
+        fatBox.setPrefWidth(Integer.MAX_VALUE);
         Label fatLabel = new Label("Fat: ");
         fatLabel.setMinWidth(50);
         fatPBarCheckout = new ProgressBar();
-        fatPBarCheckout.setStyle("-fx-accent: red;");
+        fatPBarCheckout.setStyle("-fx-accent: #112B3C;");
         fatPBarCheckout.setProgress(currentFat / fatGoal);
         fatPBarCheckout.setPrefWidth(progressBarWidth);
         fatBox.getChildren().addAll(fatLabel, fatPBarCheckout);
+        fatPBarCheckout.setPrefWidth(Integer.MAX_VALUE);
 
         VBox goalProgressBars = new VBox(10);
         //goalProgressBars.setPadding(new Insets(5, 5, 5, 5));
@@ -701,15 +713,20 @@ public class FinalProject extends Application{
         goalProgressBars.setAlignment(Pos.CENTER);
         goalProgressBars.getChildren().addAll(proteinBox, carbBox, fatBox);
         goalProgressBars.setAlignment(Pos.BOTTOM_LEFT);
+        goalProgressBars.setPrefWidth(Integer.MAX_VALUE);
+        
         
         return goalProgressBars;
     }
     private void updateGoalProgressBarsCheckout() {
         proteinPBarCheckout.setProgress(Double.valueOf(currentProtein) / Double.valueOf(proteinGoal));
+        
         //System.out.println("protein: " + currentProtein);
         carbPBarCheckout.setProgress(Double.valueOf(currentCarb) / Double.valueOf(carbGoal));
+        
         //System.out.println("carb: " + currentCarb);
         fatPBarCheckout.setProgress(Double.valueOf(currentFat) / Double.valueOf(fatGoal));
+        
         //System.out.println("fat: " + currentFat);
     }
 
@@ -762,7 +779,7 @@ public class FinalProject extends Application{
         Label proteinLabel = new Label("Protein: ");
         proteinLabel.setMinWidth(50);
         proteinPBar = new ProgressBar();
-        proteinPBar.setStyle("-fx-accent: blue;");
+        proteinPBar.setStyle("-fx-accent: #F66B0E;");
         proteinPBar.setProgress(currentProtein / proteinGoal);
         proteinPBar.setPrefWidth(progressBarWidth);
         proteinBox.getChildren().addAll(proteinLabel, proteinPBar);
@@ -772,7 +789,7 @@ public class FinalProject extends Application{
         Label carbLabel = new Label("Carbs: ");
         carbLabel.setMinWidth(50);
         carbPBar = new ProgressBar();
-        carbPBar.setStyle("-fx-accent: green;");
+        carbPBar.setStyle("-fx-accent: #205375;");
         carbPBar.setProgress(currentCarb / carbGoal);
         carbPBar.setPrefWidth(progressBarWidth);
         carbBox.getChildren().addAll(carbLabel, carbPBar);
@@ -782,12 +799,13 @@ public class FinalProject extends Application{
         Label fatLabel = new Label("Fat: ");
         fatLabel.setMinWidth(50);
         fatPBar = new ProgressBar();
-        fatPBar.setStyle("-fx-accent: red;");
+        fatPBar.setStyle("-fx-accent: #112B3C;");
         fatPBar.setProgress(currentFat / fatGoal);
         fatPBar.setPrefWidth(progressBarWidth);
         fatBox.getChildren().addAll(fatLabel, fatPBar);
 
         VBox goalProgressBars = new VBox(10);
+        goalProgressBars.setPadding(new Insets(5, 5, 5, 5));
         goalProgressBars.getChildren().addAll(proteinBox, carbBox, fatBox);
         goalProgressBars.setAlignment(Pos.BOTTOM_LEFT);
         main.add(goalProgressBars, 1, 2);
