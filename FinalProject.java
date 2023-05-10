@@ -85,6 +85,7 @@ public class FinalProject extends Application{
     VBox cartSide;
     VBox showCase;
     HBox addtoCBox = new HBox();
+    VBox goalsBox;
     ProgressBar pb;
     private static final String IMAGE_CLASS = "image" ;
     private static final String SHOPPER_STYLE = "shopper" ;
@@ -568,10 +569,13 @@ public class FinalProject extends Application{
 
         TextField carbGoalField = new TextField(String.valueOf(carbGoal));
         Button carbGoalButton = new Button("Set Carb Goal"); 
+        
         carbGoalButton.setOnAction(evt -> {
             carbGoal = Integer.valueOf(carbGoalField.getText());
             updateGoalProgressBars();
             updateGoalProgressBarsCheckout();
+            updateGoalsBox();
+            carbGoalField.clear();
         });
         HBox carbGoalBox = new HBox();
         carbGoalBox.getChildren().addAll(carbGoalField, carbGoalButton);
@@ -582,6 +586,8 @@ public class FinalProject extends Application{
             proteinGoal = Integer.valueOf(proteinGoalField.getText());
             updateGoalProgressBars();
             updateGoalProgressBarsCheckout();
+            updateGoalsBox();
+            proteinGoalField.clear();
         });
         HBox proteinGoalBox = new HBox();
         proteinGoalBox.getChildren().addAll(proteinGoalField, proteinGoalButton);
@@ -592,12 +598,24 @@ public class FinalProject extends Application{
             fatGoal = Integer.valueOf(fatGoalField.getText());
             updateGoalProgressBars();
             updateGoalProgressBarsCheckout();
+            updateGoalsBox();
+            fatGoalField.clear();
         });
         HBox fatGoalBox = new HBox();
         fatGoalBox.getChildren().addAll(fatGoalField, fatGoalButton);
 
-        goalBox.getChildren().addAll(carbGoalBox, proteinGoalBox, fatGoalBox);
+        goalsBox = new VBox();
+        TextArea goalsTextArea = new TextArea("Current Carb Goal: " + String.valueOf(carbGoal) + "\nCurrent Protein Goal: " + String.valueOf(proteinGoal) + "\nCurrent Fat Goal: " + String.valueOf(fatGoal));
+        goalsBox.getChildren().addAll(goalsTextArea);
+
+        goalBox.getChildren().addAll(carbGoalBox, proteinGoalBox, fatGoalBox, goalsBox);
         goalSetter.setContent(goalBox);
+    }
+
+    private void updateGoalsBox(){
+        TextArea goalsTextArea = new TextArea("Current Carb Goal: " + String.valueOf(carbGoal) + "\nCurrent Protein Goal: " + String.valueOf(proteinGoal) + "\nCurrent Fat Goal: " + String.valueOf(fatGoal));
+        goalsBox.getChildren().clear();
+        goalsBox.getChildren().addAll(goalsTextArea);
     }
 
     private void checkoutTable(){
@@ -1002,6 +1020,9 @@ public class FinalProject extends Application{
             imageView.setFitWidth(500); 
             imageView.setPreserveRatio(true);  
             return imageView;
+    }
+    public static void main(String[] args){
+        launch(args);
     }
 
 }
