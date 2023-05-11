@@ -106,6 +106,8 @@ For this project we plan on using a backend database that will likely either be 
 
 ### Images
 <img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/694f8592-64d2-4821-9fb5-3566d9216625">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/24726b7c-fa57-42c5-8b1a-7d47c1258518">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/694f8592-64d2-4821-9fb5-3566d9216625">
 <img height = "200 alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/8ce2d839-a2b8-41f1-8272-bd260d60b62c">
 <img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/86b8578c-2e22-49b5-8845-3f4ef72820b8">
 <img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/ff6f20ab-e070-4895-9ba3-fe533fc7783a">
