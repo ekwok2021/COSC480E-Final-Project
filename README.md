@@ -68,7 +68,7 @@ For this project we plan on using a backend database that will likely either be 
 #### Data Structures
 - Item: Items are an object that has values for name, category, price, amount, calories, protein, fat, and carbs.
 - Order: Orders are a class that holds Items in an ArrayList.
-- HashMap: Orders are held in a hashmap with a LocalDate as a key and an Order as a value. This is helpful for being able to view previous meals, and plan future ones.
+- HashMap: Orders are held in a hashmap with a LocalDate as a key and an Order as a value. This is helpful for being able to view previous   meals, and plan future ones.
 - ObservableLists: The current order is stored in several observable lists in order to be displayed in multiple table views.
 
 #### Noteworthy Libraries
@@ -81,28 +81,31 @@ For this project we plan on using a backend database that will likely either be 
 
 #### Project Architecture
 - The root of the project is a TabPane. 
-    - The Home Tab is laid out on a GridPane. The GridPane contains many different HBox's and VBox's that contain various widgets. Most importantly though, there is a ScrollPane that holds a GridPane that functions as the Item Browser. Each box of the gridpane contains a VBox with an image as a button.
-    - The CheckOut, progress, and calendar tabs are laid out on a VBox. Each VBox then has a variety of other VBox's and Hbox's that group together widgets.
+    - The Home Tab is laid out on a GridPane. The GridPane contains many different HBox's and VBox's that contain various widgets. Most           importantly though, there is a ScrollPane that holds a GridPane that functions as the Item Browser. Each box of the gridpane contains       a VBox with an image as a button.
+    - The CheckOut, progress, and calendar tabs are laid out on a VBox. Each VBox then has a variety of other VBox's and Hbox's that group       together widgets.
 
 
 ### Features
 - Home:
-    - Search Bar: The home tab has a search bar at the top that allows the user to search for items. These items will then be shown to the user through the shopping interface.
-    - Shopping Interface: The shopping interface is a ScrollPane that contains a GridPane. This GridPane contains images that are buttons that, when clicked, open more information about each item. The interface is able to be scrolled, and has two columns.
-    - Progress Bars: The progress bars show the user's progress towards acheiving their goals. They are updated when the user adds or removes an item from the cart.
-    - Cart: The cart is a TitledPane that can retract and expand to hide and show information. The TitledPane contains a table view which functions as the cart. The table view contains the item name, the price, and the amount of each item. Items are able to be deleted by selecting them in the table view, and then pressing the delete key. The amount can be changed by double clicking on the amount, changing the amount, and then pressing enter. It can also be changed by adding the same item to the cart. This will add the new amount to the previous amount. There is also a checkout button that takes the user to the checkout tab.
-    - Information Group: The information group appears when the user clicks on an item. In this group, the all of the item's information is displayed, along with an image, and an add to cart interface. The user can input the amount and click the button to add the item to the cart. There is also a hide button which will hide all this information. 
+    - Search Bar: The home tab has a search bar at the top that allows the user to search for items. These items will then be shown to the       user through the shopping interface.
+    - Shopping Interface: The shopping interface is a ScrollPane that contains a GridPane. This GridPane contains images that are buttons         that, when clicked, open more information about each item. The interface is able to be scrolled, and has two columns.
+    - Progress Bars: The progress bars show the user's progress towards acheiving their goals. They are updated when the user adds or             removes an item from the cart.
+    - Cart: The cart is a TitledPane that can retract and expand to hide and show information. The TitledPane contains a table view which         functions as the cart. The table view contains the item name, the price, and the amount of each item. Items are able to be deleted by       selecting them in the table view, and then pressing the delete key. The amount can be changed by double clicking on the amount,             changing the amount, and then pressing enter. It can also be changed by adding the same item to the cart. This will add the new             amount to the previous amount. There is also a checkout button that takes the user to the checkout tab.
+    - Information Group: The information group appears when the user clicks on an item. In this group, the all of the item's information is       displayed, along with an image, and an add to cart interface. The user can input the amount and click the button to add the item to         the cart. There is also a hide button which will hide all this information. 
 - CheckOut:
-    - Table View: The main feature of the checkout tab is the table view. This table view functions the same as the one on the home screen, and contains all of the items currently in the cart.
-    - Progress Bars: These progress bars function the same as the ones on the home view, but they are a little bigger and easier to tell what the user's progress is.
-    - Date Picker/Checkout: The date picker allows the user to pick the date they would like to order for, and then click the checkout button to confirm the order. This clears the cart, and adds it to the HashMap of all orders made.
+    - Table View: The main feature of the checkout tab is the table view. This table view functions the same as the one on the home screen,       and contains all of the items currently in the cart.
+    - Progress Bars: These progress bars function the same as the ones on the home view, but they are a little bigger and easier to tell         what the user's progress is.
+    - Date Picker/Checkout: The date picker allows the user to pick the date they would like to order for, and then click the checkout           button to confirm the order. This clears the cart, and adds it to the HashMap of all orders made.
 - Goal Setter:
-    - The goal setter tab allows the user to set the goals for fat, protein, and carbs. These goals will update and change the way the progres bars fill up.
+    - The goal setter tab allows the user to set the goals for fat, protein, and carbs. These goals will update and change the way the           progres bars fill up.
 - Calendar: 
-    - Date Picker/See Order: The date picker allows the user to choose a date they would like to view the order for. The user can see future orders and previous orders, allowing them to reorder carts that they have already ordered through the checkout button. 
+    - Date Picker/See Order: The date picker allows the user to choose a date they would like to view the order for. The user can see             future orders and previous orders, allowing them to reorder carts that they have already ordered through the checkout button. 
     - Table View: This table view shows the cart for the date the date picker is set to. This table view is not able to be edited, so if the user would like to edit it, they will have to click checkout and to it in the checkout tab. 
+    - Save: The Calendar is stored in a hashmap with a LocalDate as a key and an Order as the value. That hashmap can be saved to a dat           file. The contents of the dat file will be automatically put back into the hashmap upon loading the app. This allows the user to be         able to save future orders, or look at previous orders, even after closing the app.
 - Reviews: 
     - The reviews tab shows all the glowing reviews the app has gotten. 
+- General Features:
+    - Many buttons in the application play an animation when clicked. Some of these include the add to cart button and the save button. The       buttons will spin to provide feedback to the user that they have actually clicked the button.
 
 ### Limitations
 
