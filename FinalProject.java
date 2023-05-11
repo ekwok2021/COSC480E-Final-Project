@@ -56,7 +56,7 @@ import java.io.*;
 import javafx.scene.control.ScrollPane;
 import javafx.collections.transformation.FilteredList;
 import java.util.HashMap;
-
+import javafx.scene.layout.BorderPane;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import javafx.scene.control.ProgressBar;
@@ -119,6 +119,9 @@ public class FinalProject extends Application{
     ProgressBar proteinPBarCheckout;
     ProgressBar carbPBarCheckout;
     ProgressBar fatPBarCheckout;
+    TextField currentCarbGoal;
+    TextField currentProteinGoal;
+    TextField currentFatGoal;
 
     HashMap <LocalDate, Order> orderDates= new HashMap<>();
 
@@ -145,6 +148,7 @@ public class FinalProject extends Application{
     TableView<Item> ctable = new TableView<>();
 
     public void start(Stage stage) {
+        CalendarFileHandler.readRecords(orderDates);
         items = readIn();
         createTabs();
         createHome();
@@ -579,6 +583,7 @@ public class FinalProject extends Application{
         });
         HBox carbGoalBox = new HBox();
         carbGoalBox.getChildren().addAll(carbGoalField, carbGoalButton);
+        carbGoalBox.setAlignment(Pos.CENTER);
 
         TextField proteinGoalField = new TextField(String.valueOf(proteinGoal));
         Button proteinGoalButton = new Button("Set Protein Goal");
@@ -591,6 +596,7 @@ public class FinalProject extends Application{
         });
         HBox proteinGoalBox = new HBox();
         proteinGoalBox.getChildren().addAll(proteinGoalField, proteinGoalButton);
+        proteinGoalBox.setAlignment(Pos.CENTER);
 
         TextField fatGoalField = new TextField(String.valueOf(fatGoal));
         Button fatGoalButton = new Button("Set Fat Goal");
@@ -603,19 +609,62 @@ public class FinalProject extends Application{
         });
         HBox fatGoalBox = new HBox();
         fatGoalBox.getChildren().addAll(fatGoalField, fatGoalButton);
+        fatGoalBox.setAlignment(Pos.CENTER);
 
         goalsBox = new VBox();
-        TextArea goalsTextArea = new TextArea("Current Carb Goal: " + String.valueOf(carbGoal) + "\nCurrent Protein Goal: " + String.valueOf(proteinGoal) + "\nCurrent Fat Goal: " + String.valueOf(fatGoal));
-        goalsBox.getChildren().addAll(goalsTextArea);
+        goalsBox.setAlignment(Pos.CENTER);
+        goalsBox.setSpacing(10);
+        HBox currentCGoalBox = new HBox();
+        currentCGoalBox.setAlignment(Pos.CENTER);
+        currentCGoalBox.setSpacing(5);
+        Label currentCGoalLabel = new Label("Current Carb Goal: ");
+        currentCarbGoal = new TextField(String.valueOf(carbGoal));
+        currentCGoalBox.getChildren().addAll(currentCGoalLabel, currentCarbGoal);
+        HBox currentPGoalBox = new HBox();
+        currentPGoalBox.setAlignment(Pos.CENTER);
+        currentPGoalBox.setSpacing(5);
+        Label currentPGoalLabel = new Label("Current Protein Goal: ");
+        currentProteinGoal = new TextField(String.valueOf(proteinGoal));
+        currentPGoalBox.getChildren().addAll(currentPGoalLabel, currentProteinGoal);
+        HBox currentFGoalBox = new HBox();
+        currentFGoalBox.setAlignment(Pos.CENTER);
+        currentFGoalBox.setSpacing(5);
+        Label currentFGoalLabel = new Label("Current Fat Goal: ");
+        currentFatGoal = new TextField(String.valueOf(fatGoal));
+        currentFGoalBox.getChildren().addAll(currentFGoalLabel, currentFatGoal);
+       
+       // TextArea goalsTextArea = new TextArea("Current Carb Goal: " + String.valueOf(carbGoal) + "\nCurrent Protein Goal: " + String.valueOf(proteinGoal) + "\nCurrent Fat Goal: " + String.valueOf(fatGoal));
+        goalsBox.getChildren().addAll(currentPGoalBox, currentCGoalBox, currentFGoalBox);
+        goalBox.getChildren().addAll(proteinGoalBox, carbGoalBox,fatGoalBox);
+        goalBox.setAlignment(Pos.CENTER);
+        goalBox.setSpacing(10);
+        goalBox.setPadding(new Insets(20, 20, 20, 20));
+        Image i;
+        try ( FileInputStream inputstream = new FileInputStream("treadmill.png")) {
+            i = new Image(inputstream);
+        } // fileIn is closed
+        catch (IOException e) {
+            i = new Image("Ceasar_Salad.png");
+        }
+        ImageView imageView = new ImageView(i); 
+        imageView.setFitHeight(250); 
+        imageView.setFitWidth(250); 
+        imageView.setPreserveRatio(true);  
 
-        goalBox.getChildren().addAll(carbGoalBox, proteinGoalBox, fatGoalBox, goalsBox);
-        goalSetter.setContent(goalBox);
+        VBox gBox = new VBox();
+        gBox.setAlignment(Pos.CENTER);
+        gBox.setSpacing(30);
+        gBox.getStyleClass().add("borderBox");
+        gBox.getChildren().addAll(goalBox, goalsBox, imageView);
+        goalSetter.setContent(gBox);
     }
 
     private void updateGoalsBox(){
-        TextArea goalsTextArea = new TextArea("Current Carb Goal: " + String.valueOf(carbGoal) + "\nCurrent Protein Goal: " + String.valueOf(proteinGoal) + "\nCurrent Fat Goal: " + String.valueOf(fatGoal));
-        goalsBox.getChildren().clear();
-        goalsBox.getChildren().addAll(goalsTextArea);
+        //TextArea goalsTextArea = new TextArea("Current Carb Goal: " + String.valueOf(carbGoal) + "\nCurrent Protein Goal: " + String.valueOf(proteinGoal) + "\nCurrent Fat Goal: " + String.valueOf(fatGoal));
+        currentCarbGoal.setText(String.valueOf(carbGoal));
+        currentProteinGoal.setText(String.valueOf(proteinGoal));
+        currentFatGoal.setText(String.valueOf(fatGoal));
+       
     }
 
     private void checkoutTable(){
@@ -878,11 +927,16 @@ public class FinalProject extends Application{
             Cart.clear();
             tabPane.getSelectionModel().select(checkOut);
         });
+        Button save = new Button("Save Calendar");
+        save.setOnAction(e->{
+            animate(save);
+            CalendarFileHandler.saveRecords(orderDates);
+        });
         HBox dateSeer = new HBox();
         dateSeer.setSpacing(5);
         dateSeer.setAlignment(Pos.CENTER);
         dateSeer.setPadding(new Insets(5, 5, 5, 5));
-        dateSeer.getChildren().addAll(dayPicker, seeDate, dateCheckout);
+        dateSeer.getChildren().addAll(dayPicker, seeDate, dateCheckout, save);
         VBox calendarTab = new VBox();
         calendarTab.setSpacing(5);
         calendarTab.setAlignment(Pos.CENTER);
@@ -979,6 +1033,7 @@ public class FinalProject extends Application{
             reviewBox.setSpacing(5);
             reviewBox.setPadding(new Insets(5, 5, 5, 5));
             reviewBox.setPrefHeight(Integer.MAX_VALUE);
+            reviewBox.getStyleClass().add("borderBox");
             reviews.setContent(reviewBox);
     }
     private ImageView getImage(Integer num){
@@ -1021,8 +1076,6 @@ public class FinalProject extends Application{
             imageView.setPreserveRatio(true);  
             return imageView;
     }
-    public static void main(String[] args){
-        launch(args);
-    }
+    
 
 }

@@ -204,3 +204,9 @@ table-view .table-cell{
     -fx-text-box-border: #112B3C;
     -fx-control-inner-background: #EFEFEF;
   }
+
+.borderBox{
+    -fx-border-color: #112B3C;
+    -fx-border-insets: 5;
+    -fx-border-width: 20;
+}
