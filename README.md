@@ -107,7 +107,18 @@ For this project we plan on using a backend database that will likely either be 
 - General Features:
     - Many buttons in the application play an animation when clicked. Some of these include the add to cart button and the save button. The       buttons will spin to provide feedback to the user that they have actually clicked the button.
 
-### Limitations
+### Challenges
+-Scroll Pane
+	-We faced some challenges when implementing the scroll pane. Particularly it was difficult getting the items within the grid within the scroll pane to expand with the expansion of the window.
+
+-Titled Pane
+	-We faced some challenges with the titled pane and its size. At first, the titled apne would only display a very short box and was incredibly difficult to use. We were since able to resolve this issue and make the cart easy to view.
+
+-Progress Bar
+	-We faced some issues with having the progress bars in both the checkout and the main home tab update simultaneously at the same time when adding or removing something to the cart. We were able to resolve this issue and the progress bars on both page update and are identical to one another and accurately display the information.
+
+-Calendar
+	-We faced some issues when trying to save and load dates into the calendar with the save dates sometimes not being equal. The calendar feature now works without issue and you are able to save and load using a .dat file.
 
 ### Future Work
 
