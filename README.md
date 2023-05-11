@@ -109,18 +109,26 @@ For this project we plan on using a backend database that will likely either be 
 
 ### Challenges
 - Scroll Pane
-	- We faced some challenges when implementing the scroll pane. Particularly it was difficult getting the items within the grid within the scroll pane to expand with the expansion of the window.
+    - We faced some challenges when implementing the scroll pane. Particularly it was difficult getting the items within the grid within the scroll pane to expand with the expansion of the window.
 
 - Titled Pane
-	- We faced some challenges with the titled pane and its size. At first, the titled apne would only display a very short box and was incredibly difficult to use. We were since able to resolve this issue and make the cart easy to view.
+    - We faced some challenges with the titled pane and its size. At first, the titled pane would only display a very short box and was incredibly difficult to use. We were since able to resolve this issue and make the cart easy to view.
 
 - Progress Bar
-	- We faced some issues with having the progress bars in both the checkout and the main home tab update simultaneously at the same time when adding or removing something to the cart. We were able to resolve this issue and the progress bars on both page update and are identical to one another and accurately display the information.
+    - We faced some issues with having the progress bars in both the checkout and the main home tab update simultaneously at the same time when adding or removing something to the cart. We were able to resolve this issue and the progress bars on both page update and are identical to one another and accurately display the information.
 
 - Calendar
-	- We faced some issues when trying to save and load dates into the calendar with the save dates sometimes not being equal. The calendar feature now works without issue and you are able to save and load using a .dat file.
+    - We faced some issues when trying to save and load dates into the calendar with the save dates sometimes not being equal. The calendar feature now works without issue and you are able to save and load using a .dat file.
 
 ### Future Work
+- Adding Multiple Storefronts
+    - Currently there is only one store to choose from. We could implement an option to choose food items from multiple stores and create orders from multiple stores at once while still tracking ones progress.
+   
+- Preset Diets or Goals
+    - In the goal setter tab we could implement an option for users to pick a pre created diet given the written description.
+
+- Implement as an Actual App
+    - In the future we would want to make this app genuinely usable and be able to load real stores and create real orders.
 
 ### Images
 <img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/694f8592-64d2-4821-9fb5-3566d9216625">
