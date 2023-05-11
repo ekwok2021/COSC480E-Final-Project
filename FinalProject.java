@@ -632,6 +632,10 @@ public class FinalProject extends Application{
         Label currentFGoalLabel = new Label("Current Fat Goal: ");
         currentFatGoal = new TextField(String.valueOf(fatGoal));
         currentFGoalBox.getChildren().addAll(currentFGoalLabel, currentFatGoal);
+
+        currentCarbGoal.setEditable(false);
+        currentProteinGoal.setEditable(false);
+        currentFatGoal.setEditable(false);
        
        // TextArea goalsTextArea = new TextArea("Current Carb Goal: " + String.valueOf(carbGoal) + "\nCurrent Protein Goal: " + String.valueOf(proteinGoal) + "\nCurrent Fat Goal: " + String.valueOf(fatGoal));
         goalsBox.getChildren().addAll(currentPGoalBox, currentCGoalBox, currentFGoalBox);
@@ -1077,5 +1081,7 @@ public class FinalProject extends Application{
             return imageView;
     }
     
-
+    public static void main(String[] args){
+        launch(args);
+    }
 }
