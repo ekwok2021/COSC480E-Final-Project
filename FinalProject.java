@@ -147,6 +147,7 @@ public class FinalProject extends Application{
     ObservableList<Item> Cart = FXCollections.observableArrayList();
     TableView<Item> ctable = new TableView<>();
 
+    //function to start calling functions to populate tabs
     public void start(Stage stage) {
         CalendarFileHandler.readRecords(orderDates);
         items = readIn();
@@ -168,6 +169,7 @@ public class FinalProject extends Application{
         stage.setTitle("InstaCart Ripoff");
         stage.show(); 
     }
+    //function to create tabs
     private void createTabs(){
         tabPane = new TabPane();
         
@@ -183,6 +185,7 @@ public class FinalProject extends Application{
         reviews.setClosable(false);
         tabPane.getTabs().addAll(home, checkOut, goalSetter, calendar, reviews);
     }
+    //function to create the home tab
     private void createHome(){
         //Create Main Pane
         createHomeGrid();
@@ -199,7 +202,7 @@ public class FinalProject extends Application{
 
         home.setContent(main);
     }
-
+    //function to create the home tab background grid
     private void createHomeGrid(){
         main = new GridPane();
         ColumnConstraints col1 = new ColumnConstraints();
@@ -211,6 +214,7 @@ public class FinalProject extends Application{
         main.getColumnConstraints().addAll(col1, col2, col3);
     }
 
+    //function to create the titled pane cart
     private void createCart(){
         cartSide = new VBox();
         Label label = new Label("");
@@ -224,6 +228,7 @@ public class FinalProject extends Application{
         cartSide.setPadding(new Insets(5, 5, 0, 0));
     }
 
+    //calls functions to create search bar and shopping scroll pane
     private void createShop(){
         shop = new VBox();
         shop.getChildren().addAll(createSearch(),createShopGrid());
@@ -233,6 +238,7 @@ public class FinalProject extends Application{
         main.add(shop, 1,1);
     }
 
+    //creates the search bar
     private HBox createSearch(){
         searchBar = new TextField();
         searchBar.setPrefWidth(Integer.MAX_VALUE);
@@ -249,6 +255,7 @@ public class FinalProject extends Application{
         return searchBox;
     }
 
+    //creates the scroll pane and the shopping grid within it
     private ScrollPane createShopGrid(){
         scroll = new ScrollPane();
         scroll.setPrefHeight(Integer.MAX_VALUE);
@@ -270,6 +277,7 @@ public class FinalProject extends Application{
         return scroll;
     }
 
+    //populates the shopping grid with items
     private void populateShopGrid(){
         //System.out.println(searched.toString());
         buttons.clear();
@@ -322,6 +330,7 @@ public class FinalProject extends Application{
         scroll.setContent(shopper);
     }
 
+    //function to display info on items
     private void showCasing(){
         showCase = new VBox();
         HBox nBox = new HBox();
@@ -457,6 +466,7 @@ public class FinalProject extends Application{
         });
     }
     //https://genuinecoder.com/javafx-animation-tutorial/
+    //function to animate the button when called
     private void animate(Button btn){
         
         Duration duration = Duration.millis(2500);
@@ -485,7 +495,7 @@ public class FinalProject extends Application{
         return (item.getName().toLowerCase().contains(searchText.toLowerCase())) ||
                 (item.getCategory().toLowerCase().contains(searchText.toLowerCase()));
     }
-
+    //function to filter list when searching
     private void filterList(String searchText){
         Order filteredList = new Order();
         for (int i = 0; i < items.getTotal(); i++){
@@ -495,7 +505,7 @@ public class FinalProject extends Application{
     }
 
 
-    //cart
+    //function to fill the table view and the cart
     private void fillCartContainer(){
         table.setItems(observableCart);
         table.setEditable(true);
@@ -568,6 +578,7 @@ public class FinalProject extends Application{
 
     }
 
+    //function to create goal tab
     private void setGoals(){
         VBox goalBox = new VBox();
 
@@ -663,6 +674,7 @@ public class FinalProject extends Application{
         goalSetter.setContent(gBox);
     }
 
+    //function to update goal box on the goal tab
     private void updateGoalsBox(){
         //TextArea goalsTextArea = new TextArea("Current Carb Goal: " + String.valueOf(carbGoal) + "\nCurrent Protein Goal: " + String.valueOf(proteinGoal) + "\nCurrent Fat Goal: " + String.valueOf(fatGoal));
         currentCarbGoal.setText(String.valueOf(carbGoal));
@@ -671,6 +683,7 @@ public class FinalProject extends Application{
        
     }
 
+    //function for the checkout tab 
     private void checkoutTable(){
         VBox checkoutTableBox = new VBox();
         observableCartCopy = observableCart;
@@ -739,6 +752,7 @@ public class FinalProject extends Application{
         checkOut.setContent(checkoutTableBox);
     }
 
+    //function for the progress bars on the checkout tab
     private VBox createPBarCheckout(){
         int progressBarWidth = 380;
 
@@ -789,6 +803,8 @@ public class FinalProject extends Application{
         
         return goalProgressBars;
     }
+
+    //function to update the progress bars at checkout tab
     private void updateGoalProgressBarsCheckout() {
         proteinPBarCheckout.setProgress(Double.valueOf(currentProtein) / Double.valueOf(proteinGoal));
         
@@ -801,6 +817,8 @@ public class FinalProject extends Application{
         //System.out.println("fat: " + currentFat);
     }
 
+
+    //function to create date picker
     private HBox createDatePicker(){
         DatePicker datePicker = new DatePicker();
         Button checkout = new Button("Checkout");
@@ -841,7 +859,7 @@ public class FinalProject extends Application{
         return datePickerBox;
     }
 
-
+    //function to create progress bars on the home tab
     private void createPBar(){
         int progressBarWidth = 380;
 
@@ -882,6 +900,7 @@ public class FinalProject extends Application{
         main.add(goalProgressBars, 1, 2);
     }
 
+    //function to update the goal progress bars on the home tab
     private void updateGoalProgressBars() {
         proteinPBar.setProgress(Double.valueOf(currentProtein) / Double.valueOf(proteinGoal));
        // System.out.println("protein: " + currentProtein);
@@ -891,6 +910,7 @@ public class FinalProject extends Application{
        // System.out.println("fat: " + currentFat);
     }
 
+    //function to create the calendar tab
     private void createCalendarTab(){
 
        
@@ -921,6 +941,7 @@ public class FinalProject extends Application{
         });
         Button dateCheckout = new Button("Checkout");
         dateCheckout.setOnAction(e->{
+            
             animate(dateCheckout);
             shoppingCart.clearOrder();
             observableCart.clear();
@@ -930,6 +951,8 @@ public class FinalProject extends Application{
             }
             Cart.clear();
             tabPane.getSelectionModel().select(checkOut);
+            updateGoalProgressBars();
+            updateGoalProgressBarsCheckout();
         });
         Button save = new Button("Save Calendar");
         save.setOnAction(e->{
@@ -948,6 +971,8 @@ public class FinalProject extends Application{
         calendarTab.getChildren().addAll(dateSeer, ctable);
         calendar.setContent(calendarTab);
     }
+
+    //function to populate the calendar tabs cart when trying to see an order for a specific date
     private void popCart(LocalDate d){
         for(LocalDate od:orderDates.keySet()){
             if(d.compareTo(od)==0){
@@ -959,6 +984,7 @@ public class FinalProject extends Application{
         } 
     }
 
+    //reads in items from the .csv file
     private Order readIn(){
         Order order = new Order();
         ArrayList<Item> itemsArray = new ArrayList<>();
@@ -998,6 +1024,7 @@ public class FinalProject extends Application{
         return order;
     }
 
+    //function to create review tab
     private void reviewTab(){
         VBox reviewBox = new VBox();
 
@@ -1040,6 +1067,8 @@ public class FinalProject extends Application{
             reviewBox.getStyleClass().add("borderBox");
             reviews.setContent(reviewBox);
     }
+
+    //function to get images
     private ImageView getImage(Integer num){
         Image image;
         if(num == 1){
