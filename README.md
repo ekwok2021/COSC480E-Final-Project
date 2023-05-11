@@ -104,6 +104,10 @@ For this project we plan on using a backend database that will likely either be 
 - Reviews: 
     - The reviews tab shows all the glowing reviews the app has gotten. 
 
+### Limitations
+
+### Future Work
+
 ### Images
 <img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/694f8592-64d2-4821-9fb5-3566d9216625">
 <img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/24726b7c-fa57-42c5-8b1a-7d47c1258518">
