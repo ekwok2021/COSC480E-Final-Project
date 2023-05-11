@@ -58,9 +58,9 @@ For this project we plan on using a backend database that will likely either be 
     - *We implemented the search bar to the presentation by doing a simple look up on a list variable containing the items.
     
 ### Planning Images
-<img width="602" height = "200" alt="Screenshot 2023-05-04 at 10 51 14 AM" src="https://user-images.githubusercontent.com/78102462/236245817-78aacf15-ddd2-4f74-9bb7-0ca7fa53adc9.png">
-<img width="602" height = "200" alt="Screenshot 2023-05-04 at 10 51 23 AM" src="https://user-images.githubusercontent.com/78102462/236245764-8a5c9b4e-f815-466b-8c98-f91cfd964c2d.png">
-<img width="602" height = "200" alt="Screenshot 2023-05-04 at 10 51 30 AM" src="https://user-images.githubusercontent.com/78102462/236245727-f1879cb9-d91d-4826-ac92-1d0fca5dc613.png">
+<img height = "200" alt="Screenshot 2023-05-04 at 10 51 14 AM" src="https://user-images.githubusercontent.com/78102462/236245817-78aacf15-ddd2-4f74-9bb7-0ca7fa53adc9.png">
+<img height = "200" alt="Screenshot 2023-05-04 at 10 51 23 AM" src="https://user-images.githubusercontent.com/78102462/236245764-8a5c9b4e-f815-466b-8c98-f91cfd964c2d.png">
+<img height = "200" alt="Screenshot 2023-05-04 at 10 51 30 AM" src="https://user-images.githubusercontent.com/78102462/236245727-f1879cb9-d91d-4826-ac92-1d0fca5dc613.png">
 
 ## Final Product
 
@@ -105,9 +105,9 @@ For this project we plan on using a backend database that will likely either be 
     - The reviews tab shows all the glowing reviews the app has gotten. 
 
 ### Images
-<img width="651" height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/694f8592-64d2-4821-9fb5-3566d9216625">
-<img width="651" height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/e054dcd1-b210-4e65-a043-9c346b0def20">
-<img width="651" height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/e0de7bcc-58ee-4e42-a0d3-b55e23bf2419">
-<img width="647" height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/86b8578c-2e22-49b5-8845-3f4ef72820b8">
-<img width="648" height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/ff6f20ab-e070-4895-9ba3-fe533fc7783a">
-<img width="651" height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/e0de7bcc-58ee-4e42-a0d3-b55e23bf2419">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/694f8592-64d2-4821-9fb5-3566d9216625">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/e054dcd1-b210-4e65-a043-9c346b0def20">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/e0de7bcc-58ee-4e42-a0d3-b55e23bf2419">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/86b8578c-2e22-49b5-8845-3f4ef72820b8">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/ff6f20ab-e070-4895-9ba3-fe533fc7783a">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/e0de7bcc-58ee-4e42-a0d3-b55e23bf2419">
