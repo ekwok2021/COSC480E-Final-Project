@@ -131,9 +131,9 @@ For this project we used a backend database that is a csv file that contains a l
     - In the future we would want to make this app genuinely usable and be able to load real stores and create real orders.
 
 ### Images
-<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/694f8592-64d2-4821-9fb5-3566d9216625">
-<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/24726b7c-fa57-42c5-8b1a-7d47c1258518">
-<img height = "200 alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/8ce2d839-a2b8-41f1-8272-bd260d60b62c">
-<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/86b8578c-2e22-49b5-8845-3f4ef72820b8">
-<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/ff6f20ab-e070-4895-9ba3-fe533fc7783a">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/f4ef3783-b498-40be-86df-6c09b1781cf1">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/b3353922-e422-4824-8760-a948862e06ae">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/d9d482ba-00ec-4946-915e-9e8b618f2ce2">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/5e4bba1a-46f2-4574-b65d-9c88ff4bdb02">
+<img height = "200" alt="image" src="https://github.com/ekwok2021/COSC480E-Final-Project/assets/78102462/15d4eb14-56d2-4730-b3cf-45b8ef4a1672">
 
